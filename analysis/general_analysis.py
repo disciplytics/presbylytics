@@ -33,7 +33,7 @@ def general_analysis(data):
   st.subheader('School Enrollment')
   st.write('Key: P=Presch, K=Kindergarten, E=Elem, M=Middle, H=HighSch')
   st.bar_chart(
-    data, y = 'Grades Included', x = 'Total Enrollment', horizontal = True, stack = False)
+    data, x = 'Grades Included', y = 'Total Enrollment', horizontal = True, stack = False)
 
 
 
