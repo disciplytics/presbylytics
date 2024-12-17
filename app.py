@@ -6,6 +6,7 @@ from analysis.general_analysis import general_analysis
 from analysis.contributions_analysis import contributions_analysis
 from analysis.benevol_disburs_analysis import benevol_disburs_analysis
 from analysis.congregational_ops_analysis import congregational_ops_analysis
+from analysis.overview_analysis import overview_analysis
 
 # title
 st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
@@ -59,6 +60,8 @@ tab_list = ['Overview', 'Member Data', 'General Data', 'Contributions Data', 'Be
 overview_tab, member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
 
 # analyses
+with overview_tab:
+        overview_analysis(filtered_df)
 with member_tab:
         member_analysis(filtered_df)
 with general_tab:
