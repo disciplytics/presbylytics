@@ -49,7 +49,7 @@ filtered_df = df[
         (df['Church'].isin(church_sel))
       ]
 
-st.subheader('Members)
+st.subheader('Member Count Trends')
 st.line_chart(
   filtered_df.groupby(['Stat Year'])[['Comm', 'Non Comm']].sum(),
   y = ['Comm', 'Non Comm']
