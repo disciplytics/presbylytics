@@ -30,7 +30,7 @@ def overview_analysis(data):
   st.bar_chart(
             #data.groupby(['Stat Year'])['Per Capita Giving'].sum(),
             gpc,
-            y = 'Giving Per Capita
+            y = 'Giving Per Capita'
            # y = 'Per Capita Giving'
           )
   
