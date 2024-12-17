@@ -15,7 +15,7 @@ with st.expander("Click to Learn More"):
         st.write("This app displays the Presbyterian Church in America statistics in an interactive frontend for enhanced analysis.")
 
 # connect and load from snowflake
-df = snowflake_connection('select * from analytics_data')
+df = snowflake_connection('select * from metrics_data')
 
 # clean up columns
 df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
