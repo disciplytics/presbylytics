@@ -21,7 +21,6 @@ df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
 
 df['Stat Year'] = df['Stat Year'].astype(str)
 
-st.write(df.columns)
 # create filters
 st.sidebar.subheader("Filtering Options")
 year_sel = st.sidebar.multiselect(
