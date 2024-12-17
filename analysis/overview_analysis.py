@@ -23,17 +23,16 @@ def overview_analysis(data):
   st.subheader('Giving, Disbursements, & Expenses Metrics')
   data['Benevolent Disbursements Per Capita'] = data['Total Benevolent Disbursements'] / data['Comm']
   data['Congregational Expenses Per Capita'] = (data['Current Expenses'] +  data['Building Fund']) / data['Comm']
-  
+
+  # calc giving per capita
   gpc = data.groupby(['Stat Year'])[['Total Contrib', 'Comm']].sum().reset_index()
   gpc = gpc.groupby(['Stat Year']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Giving Per Capita')
   
-  st.write(gpc)
   st.write('Giving Per Capita')
   st.bar_chart(
-            #data.groupby(['Stat Year'])['Per Capita Giving'].sum(),
             gpc,
-            y = 'Giving Per Capita'
-           # y = 'Per Capita Giving'
+            y = 'Giving Per Capita',
+            x = 'Stat Year'
           )
   
   bpc_col, epc_col = st.columns(2)
