@@ -15,19 +15,19 @@ df.columns = [i.strip("'") for i in df.columns]
 year_filter_col, city_filter_col, state_filter_col, church_filter_col = st.columns(4)
 
 year_sel = year_filter_col.multiselect(
-  'Stat Year', df['STAT_YEAR'].unique().sort()
+  'Stat Year', df['STAT_YEAR'].unique().sort(), df['STAT_YEAR'].unique().sort()
 )
 
 city_sel = city_filter_col.multiselect(
-  'City', df['CITY'].unique().sort()
+  'City', df['CITY'].unique().sort(), df['CITY'].unique().sort()
 )
 
 state_sel = state_filter_col.multiselect(
-  'State', df['STATE'].unique().sort()
+  'State', df['STATE'].unique().sort(), df['STATE'].unique().sort()
 )
 
 church_sel = church_filter_col.multiselect(
-  'Church Name', df['CHURCH'].unique().sort()
+  'Church Name', df['CHURCH'].unique().sort(), df['CHURCH'].unique().sort()
 )
 
 
