@@ -57,7 +57,7 @@ tab_list = ['Member Data', 'General Data', 'Contributions Data', 'Benevol. Disbu
 member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
 # MEMBERS
 with member_tab:
-        member_analysis()
+        member_analysis(filtered_df)
         #st.subheader('Member Count Trends')
         #st.bar_chart(
         #  filtered_df.groupby(['Stat Year'])[['Comm', 'Non Comm']].sum(),
