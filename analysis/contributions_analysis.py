@@ -11,5 +11,5 @@ def contributions_analysis(data):
   st.write('Contributions Breakdown')
   st.bar_chart(
             data.groupby(['Stat Year'])[['Tithes Offerings', 'Special Causes', 'Building Fund Offering', 'Other Contrib', 'Other Income']].sum(),
-            y = 'Total Church Income'
+            y = ['Tithes Offerings', 'Special Causes', 'Building Fund Offering', 'Other Contrib', 'Other Income']
           )
