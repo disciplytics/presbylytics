@@ -6,7 +6,10 @@ from utils.utils import snowflake_connection
 st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
 
 # connect and load from snowflake
-df = snowflake_connection('select * from analytics_data')
+#df = snowflake_connection('select * from analytics_data')
+sql = 'select * from analytics_data'
+conn = st.connection("snowflake")
+df = conn.query(sql, ttl=0)
 
 # clean up columns
 df.columns = [i.strip("'") for i in df.columns]
