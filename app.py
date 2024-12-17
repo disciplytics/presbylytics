@@ -3,4 +3,6 @@ import pandas as pd
 
 conn = st.connection("snowflake")
 
-st.dataframe(conn.query('select * from analytics_data', ttl=0))
+df = conn.query('select * from analytics_data', ttl=0).toPandas()
+
+st.scatter_chart(df, x ="'Income,Gini Index Of Income Inequality,Gini Index,Estimate'", y = "TOTAL_CHURCH_INCOME")
