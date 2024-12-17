@@ -55,10 +55,10 @@ filtered_df = df[
         (df['Church'].isin(church_sel))
       ]
 
-tab_list = ['Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
-member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
+tab_list = ['Overview', 'Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
+overview_tab, member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
 
-# analysus
+# analyses
 with member_tab:
         member_analysis(filtered_df)
 with general_tab:
