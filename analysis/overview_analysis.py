@@ -2,7 +2,24 @@ def overview_analysis(data):
   import streamlit as st
   st.subheader('Metrics Overview')
 
+  st.subheader('Members & Family Metrics')
+  data['Family Unit Size'] = (data['Comm'] + data['Non Comm']) / data['Family Units']
+  data['Total Members'] = data['Comm'] + data['Non Comm']
 
+  total_mem_col, fus_col = st.columns(2)
+  with total_mem_col:
+    st.write('Total Members: (Comm + Non Comm)')
+    st.bar_chart(
+            data.groupby(['Stat Year'])['Total Members'].sum(),
+            y = 'Total Members'
+          )
+  with fus_col:
+    st.write('Family Unit Size: (Comm + Non Comm) / Family Units')
+    st.bar_chart(
+            data.groupby(['Stat Year'])['Family Unit Size'].sum(),
+            y = 'Family Unit Size'
+          )
+  
 
   st.subheader('Giving, Disbursements, & Expenses Metrics')
   data['Benevolent Disbursements Per Capita'] = data['Total Benevolent Disbursements'] / data['Comm']
