@@ -7,10 +7,11 @@ st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://p
 
 # connect and load from snowflake
 df = snowflake_connection('select * from analytics_data')
-st.write(df)
 
 # clean up columns
 df.columns = [i.strip("'") for i in df.columns]
+
+st.write(df)
 
 # create filters
 year_filter_col, city_filter_col, state_filter_col, church_filter_col = st.columns(4)
