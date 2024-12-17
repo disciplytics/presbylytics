@@ -5,6 +5,9 @@ from utils.utils import snowflake_connection
 # title
 st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
 
+with st.expander("Click to Learn More"):
+        st.write("This app displays the Presbyterian Church in America statistics in an interactive frontend for enhanced analysis.")
+
 # connect and load from snowflake
 df = snowflake_connection('select * from analytics_data')
 
