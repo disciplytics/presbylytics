@@ -55,8 +55,10 @@ filtered_df = df[
 tab_list = ['Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
 member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
 
-# MEMBERS
+# analysus
 with member_tab:
         member_analysis(filtered_df)
+with general_tab:
+        general_analysis(filtered_df)
 
 
