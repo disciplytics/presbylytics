@@ -21,7 +21,7 @@ def member_analysis(data):
 
   st.subheader("Breakdown: Additions & Losses")
   add_col, loss_col = st.columns(2)
-  years = data['Stat Year'].unique().tolist()
+  years = data['Stat Year'].unique().tolist().sort()
   year_filter = st.selectbox('Select a Stat Year:', years, index=0)
   break_df = data[data['Stat Year'] == year_filter]
 
@@ -29,7 +29,7 @@ def member_analysis(data):
   with add_col:
     st.bar_chart(
       break_df,
-      x = additions)
+      y = additions)
       
 
   
