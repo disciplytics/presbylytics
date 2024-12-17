@@ -2,6 +2,8 @@ def benevol_disburs_analysis(data):
   import streamlit as st
   st.subheader('Benevolent Disbursments Trends')
 
+  st.write(data.columns)
+
   total_col, pct_col = st.columns(2)
 
   with total_col:
