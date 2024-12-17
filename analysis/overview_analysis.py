@@ -25,11 +25,11 @@ def overview_analysis(data):
   data['Congregational Expenses Per Capita'] = (data['Current Expenses'] +  data['Building Fund']) / data['Comm']
   
   
-
   st.write('Giving Per Capita')
   st.bar_chart(
-            data.groupby(['Stat Year'])['Per Capita Giving'].sum(),
-            y = 'Per Capita Giving'
+            #data.groupby(['Stat Year'])['Per Capita Giving'].sum(),
+            data.groupby(['Stat Year']).apply(lambda x: x['Total Contrib'] / x['Comm'])
+           # y = 'Per Capita Giving'
           )
   
   bpc_col, epc_col = st.columns(2)
