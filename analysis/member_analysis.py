@@ -18,24 +18,3 @@ def member_analysis(data):
           y = additions + losses,
           stack = False
   )
-
-  st.subheader("Breakdown: Additions & Losses")
-  add_col, loss_col = st.columns(2)
-  years = data['Stat Year'].unique().tolist()
-  st.write(years)
-  year_filter = st.selectbox('Select a Stat Year For Breakdown:', years, index=0)
-  break_df = data[data['Stat Year'] == year_filter]
-
-  st.write(break_df.pivot(values=additions))
-  
-
-  with add_col:
-    st.bar_chart(
-      break_df,
-      y = additions,
-      stack = False,
-      horizontal = True
-    )
-      
-
-  
