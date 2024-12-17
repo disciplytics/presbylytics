@@ -9,9 +9,13 @@ def contributions_analysis(data):
           )
 
   st.write('Giving Per Capita Trends')
+  # calc giving per capita
+  gpc = data.groupby(['Stat Year'])[['Total Contrib', 'Comm']].sum().reset_index()
+  gpc = gpc.groupby(['Stat Year']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Giving Per Capita')
   st.bar_chart(
-            data.groupby(['Stat Year'])['Per Capita Giving'].sum(),
-            y = 'Per Capita Giving'
+            gpc,
+            y = 'Giving Per Capita',
+            x = 'Stat Year'
           )
   
   st.write('Contributions Breakdown')
