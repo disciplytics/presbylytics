@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # header
-st.header('Presbyanalytics, PCA Denomination', icon = :church:)
+st.header('Presbyanalytics, PCA Denomination', icon = ':church:')
 
 # create filters
 
