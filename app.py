@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 from utils.utils import snowflake_connection
-from analysis.member_analysis import member_analysis, general_analysis
+from analysis.member_analysis import member_analysis
+from analysis.general_analysis import general_analysis
 
 # title
 st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
