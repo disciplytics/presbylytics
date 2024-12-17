@@ -13,26 +13,27 @@ df.columns = [i.strip("'") for i in df.columns]
 df['STAT_YEAR'] = df['STAT_YEAR'].astype(str)
 
 # create filters
+st.sidebar.subheader("Filtering Options")
 year_sel = st.sidebar.multiselect(
-    'Stat Year', 
+    'Select a Stat Year:', 
     pd.Series(pd.unique(df['STAT_YEAR'])).sort_values(),
     pd.Series(pd.unique(df['STAT_YEAR'])).sort_values()
   )
 
 city_sel = st.sidebar.multiselect(
-    'City', 
+    'Select Church City:', 
     pd.Series(pd.unique(df['CITY'])).sort_values(),
     pd.Series(pd.unique(df['CITY'])).sort_values()
   )
 
 state_sel = st.sidebar.multiselect(
-    'State', 
+    'Select Church State:', 
     pd.Series(pd.unique(df['STATE'])).sort_values(),
     pd.Series(pd.unique(df['STATE'])).sort_values()
   )
 
 church_sel = st.sidebar.multiselect(
-    'Church Name',
+    'Select Church Name:',
     pd.Series(pd.unique(df['CHURCH'])).sort_values(),
     pd.Series(pd.unique(df['CHURCH'])).sort_values()
   )
