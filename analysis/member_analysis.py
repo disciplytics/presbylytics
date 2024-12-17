@@ -23,10 +23,12 @@ def member_analysis(data):
   add_col, loss_col = st.columns(2)
   years = data['Stat Year'].unique().tolist()
   st.write(years)
-  year_filter = st.selectbox('Select a Stat Year:', years, index=0)
+  year_filter = st.selectbox('Select a Stat Year For Breakdown:', years, index=0)
   break_df = data[data['Stat Year'] == year_filter]
 
-  st.write(f'Selected Year: {year_filter}')
+  st.write(break_df.pivot(values=additions))
+  
+
   with add_col:
     st.bar_chart(
       break_df,
