@@ -30,7 +30,10 @@ def member_analysis(data):
   with add_col:
     st.bar_chart(
       break_df,
-      y = additions)
+      x = additions,
+      stack = False,
+      horizontal = True
+    )
       
 
   
