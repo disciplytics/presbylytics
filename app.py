@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # title
-st.title('Presbyanalytics, PCA Denomination :church:')
+st.title('PCA Statistics :church:')
 
 # create filters
 
