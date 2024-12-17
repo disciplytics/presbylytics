@@ -23,18 +23,8 @@ df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
 df['Stat Year'] = df['Stat Year'].astype(str)
 
 # create filters
-st.sidebar.subheader("Filtering Options")
-year_sel = st.sidebar.multiselect(
-    'Select a Stat Year:', 
-    pd.Series(pd.unique(df['Stat Year'])).sort_values(),
-    pd.Series(pd.unique(df['Stat Year'])).sort_values()
-  )
-
-city_sel = st.sidebar.multiselect(
-    'Select Church City:', 
-    pd.Series(pd.unique(df['City'])).sort_values(),
-    pd.Series(pd.unique(df['City'])).sort_values()
-  )
+st.sidebar.subheader("Filtering Options For A Deep Dive")
+st.sidebar.write("Select A State")
 
 state_sel = st.sidebar.multiselect(
     'Select Church State:', 
@@ -42,19 +32,27 @@ state_sel = st.sidebar.multiselect(
     pd.Series(pd.unique(df['State'])).sort_values()
   )
 
-church_sel = st.sidebar.multiselect(
-    'Select Church Name:',
-    pd.Series(pd.unique(df['Church'])).sort_values(),
-    pd.Series(pd.unique(df['Church'])).sort_values()
+if len(state_sel) == 1:
+        filtered_df = df[df['State'].isin(state_sel)]
+        
+        city_sel = st.sidebar.multiselect(
+    'Select Church City:', 
+    pd.Series(pd.unique(filtered_df['City'])).sort_values(),
+    pd.Series(pd.unique(filtered_df['City'])).sort_values()
   )
 
+        filtered_df = filtered_df[filtered_df['City'].isin(city_sel)]
 
-filtered_df = df[
-        (df['Stat Year'].isin(year_sel)) & 
-        (df['City'].isin(city_sel)) &
-        (df['State'].isin(state_sel)) &
-        (df['Church'].isin(church_sel))
-      ]
+        
+        church_sel = st.sidebar.multiselect(
+    'Select Church Name:',
+    pd.Series(pd.unique(filtered_df['Church'])).sort_values(),
+    pd.Series(pd.unique(filtered_df['Church'])).sort_values()
+  )
+
+        filtered_df = filtered_df[filtered_df['Church'].isin(church_sel)]
+else:
+        filtered_df = df.copy()
 
 tab_list = ['Overview', 'Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
 overview_tab, member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
