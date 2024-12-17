@@ -30,15 +30,8 @@ def general_analysis(data):
             y = 'Small Group Attend'
           )
 
-  st.subheader('School Enrollment')
-  st.write('Key: P=Presch, K=Kindergarten, E=Elem, M=Middle, H=HighSch')
-  st.bar_chart(
-    data, x = 'Grades Included', y = 'Total Enrollment', horizontal = True, stack = False)
-
-
-
-
-
-
-
-
+  if data['Total Enrollment'] > 0:
+    st.subheader('School Enrollment')
+    st.write('Key: P=Presch, K=Kindergarten, E=Elem, M=Middle, H=HighSch')
+    st.bar_chart(
+      data, x = 'Grades Included', y = 'Total Enrollment', horizontal = True, stack = False)
