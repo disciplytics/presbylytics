@@ -19,5 +19,3 @@ def contributions_analysis(data):
             data.groupby(['Stat Year'])[['Tithes Offerings', 'Special Causes', 'Building Fund Offering', 'Other Contrib', 'Other Income']].sum(),
             y = ['Tithes Offerings', 'Special Causes', 'Building Fund Offering', 'Other Contrib', 'Other Income']
           )
-
-  
