@@ -7,7 +7,18 @@ def member_analysis(data):
         )
 
   subheader('Additions & Losses')
+  additions = ['Prof Child', 'Prof Adult', 'Trans Letter', 'Reaffirmation', 'Restored']
+  losses = ['Death', 'Trans', 'Removed From Roll', 'Discipline']
+  
+  for i in losses:
+    data[i] = data[i] * -1 
+    
   bar_chart(
-          data.groupby(['Stat Year'])[['Prof Child',	'Prof Adult']].sum(),
-          y = ['Prof Child',	'Prof Adult']
+          data.groupby(['Stat Year'])[additions].sum(),
+          y = additions
+  )
+
+  bar_chart(
+          data.groupby(['Stat Year'])[losses].sum(),
+          y = losses
   )
