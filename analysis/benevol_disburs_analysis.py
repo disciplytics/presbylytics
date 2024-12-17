@@ -11,10 +11,14 @@ def benevol_disburs_analysis(data):
             y = 'Total Benevolent Disbursements'
           )
   with pct_col:
+    # calc giving per capita
+    pct_data = data.groupby(['Stat Year'])[['Total Benevolent Disbursements', 'Grand Total: All Disbursements']].sum().reset_index()
+    pct_data = pct_data.groupby(['Stat Year']).apply(lambda x: x['Total Benevolent Disbursements'] / x['Grand Total: All Disbursements']).reset_index(name='Benevol Grand Total %')
     st.write('Total Benevolent Disbursments as Pct of All Disbursments')
     st.bar_chart(
-            data.groupby(['Stat Year'])['Benevol Grand Total'].sum(),
-            y = 'Benevol Grand Total'
+            pct_data,
+            y = 'Benevol Grand Total %',
+            x = 'Stat Year'
           )
     
   gam = ['Administration', 'Discipleship Min', 'Mission To Namerica', 
