@@ -1,6 +1,6 @@
 def overview_analysis(data):
   import streamlit as st
-  st.subheader('Metrics Overview \n\n')
+  st.subheader('Metrics Overview')
 
 
 
@@ -8,13 +8,15 @@ def overview_analysis(data):
   data['Benevolent Disbursements Per Capita'] = data['Total Benevolent Disbursements'] / data['Comm']
   data['Congregational Expenses Per Capita'] = (data['Current Expenses'] +  data['Building Fund']) / data['Comm']
   
-  bpc_col, epc_col = st.columns(2)
+  
 
   st.write('Giving Per Capita')
   st.bar_chart(
             data.groupby(['Stat Year'])['Per Capita Giving'].sum(),
             y = 'Per Capita Giving'
           )
+  
+  bpc_col, epc_col = st.columns(2)
   with bpc_col:
     st.write('Benevolent Disbursements Per Capita: Total Benevolent Disbursements / Comm')
     st.bar_chart(
