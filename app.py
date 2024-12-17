@@ -1,6 +1,12 @@
 import streamlit as st
 import pandas as pd
 
+# header
+st.header('Presbyanalytics, PCA Denomination', icon = :church:)
+
+# create filters
+
+
 conn = st.connection("snowflake")
 
 df = conn.query('select * from analytics_data', ttl=0)
