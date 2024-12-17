@@ -50,7 +50,7 @@ filtered_df = df[
       ]
 
 st.subheader('Member Count Trends')
-st.line_chart(
+st.bar_chart(
   filtered_df.groupby(['Stat Year'])[['Comm', 'Non Comm']].sum(),
   y = ['Comm', 'Non Comm']
 )
