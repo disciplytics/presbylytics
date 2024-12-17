@@ -1,15 +1,20 @@
 import streamlit as st
 import pandas as pd
 from utils.utils import snowflake_connection
+
 # title
 st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
 
 # connect and load from snowflake
 df = snowflake_connection('select * from analytics_data')
+
+# clean up columns
 df.columns = [i.strip("'") for i in df.columns]
 
 # create filters
-
+year_sel = st.multiselect(
+  'Stat Year', df['STAT_YEAR'].unique()
+)
 
 
 
