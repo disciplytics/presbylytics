@@ -9,47 +9,50 @@ st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://p
 df = snowflake_connection('select * from analytics_data')
 
 # clean up columns
-df.columns = [i.strip("'") for i in df.columns]
-df['STAT_YEAR'] = df['STAT_YEAR'].astype(str)
+df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
+
+st.write(df.columns)
+
+df['Stat Year'] = df['Stat Year'].astype(str)
 
 # create filters
 st.sidebar.subheader("Filtering Options")
 year_sel = st.sidebar.multiselect(
     'Select a Stat Year:', 
-    pd.Series(pd.unique(df['STAT_YEAR'])).sort_values(),
-    pd.Series(pd.unique(df['STAT_YEAR'])).sort_values()
+    pd.Series(pd.unique(df['Stat Year'])).sort_values(),
+    pd.Series(pd.unique(df['Stat Year'])).sort_values()
   )
 
 city_sel = st.sidebar.multiselect(
     'Select Church City:', 
-    pd.Series(pd.unique(df['CITY'])).sort_values(),
-    pd.Series(pd.unique(df['CITY'])).sort_values()
+    pd.Series(pd.unique(df['City'])).sort_values(),
+    pd.Series(pd.unique(df['City'])).sort_values()
   )
 
 state_sel = st.sidebar.multiselect(
     'Select Church State:', 
-    pd.Series(pd.unique(df['STATE'])).sort_values(),
-    pd.Series(pd.unique(df['STATE'])).sort_values()
+    pd.Series(pd.unique(df['State'])).sort_values(),
+    pd.Series(pd.unique(df['State'])).sort_values()
   )
 
 church_sel = st.sidebar.multiselect(
     'Select Church Name:',
-    pd.Series(pd.unique(df['CHURCH'])).sort_values(),
-    pd.Series(pd.unique(df['CHURCH'])).sort_values()
+    pd.Series(pd.unique(df['Church'])).sort_values(),
+    pd.Series(pd.unique(df['Church'])).sort_values()
   )
 
 
 filtered_df = df[
-        (df['STAT_YEAR'].isin(year_sel)) & 
-        (df['CITY'].isin(city_sel)) &
-        (df['STATE'].isin(state_sel)) &
-        (df['CHURCH'].isin(church_sel))
+        (df['Stat Year'].isin(year_sel)) & 
+        (df['City'].isin(city_sel)) &
+        (df['State'].isin(state_sel)) &
+        (df['Church'].isin(church_sel))
       ]
 
+st.subheader('Members)
 st.line_chart(
-  filtered_df,
-  x = 'STAT_YEAR',
-  y = ['COMM', 'NON_COMM']
+  filtered_df.groupby(['Stat Year'])[['Comm', 'Non Comm']].sum(),
+  y = ['Comm', 'Non Comm']
 )
 #st.scatter_chart(filtered_df, x ='Income,Gini Index Of Income Inequality,Gini Index,Estimate', y = "TOTAL_CONTRIB", color = "STAT_YEAR")
 #st.scatter_chart(df, x ='Housing Characteristics,Average Household Size Of Occupied Housing Units By Tenure,Average household size,Estimate', y = "TOTAL_CONTRIB", color = "STAT_YEAR")
