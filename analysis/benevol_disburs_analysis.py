@@ -2,8 +2,6 @@ def benevol_disburs_analysis(data):
   import streamlit as st
   st.subheader('Benevolent Disbursments Trends')
 
-  st.write(data.columns)
-
   total_col, pct_col = st.columns(2)
 
   with total_col:
@@ -14,8 +12,8 @@ def benevol_disburs_analysis(data):
           )
   with pct_col:
     # calc giving per capita
-    pct_data = data.groupby(['Stat Year'])[['Total Benevolent Disbursements', 'Grand Total: All Disbursements']].sum().reset_index()
-    pct_data = pct_data.groupby(['Stat Year']).apply(lambda x: x['Total Benevolent Disbursements'] / x['Grand Total: All Disbursements']).reset_index(name='Benevol Grand Total %')
+    pct_data = data.groupby(['Stat Year'])[['Total Benevolent Disbursements', 'Total All Disbursements']].sum().reset_index()
+    pct_data = pct_data.groupby(['Stat Year']).apply(lambda x: x['Total Benevolent Disbursements'] / x['Total All Disbursements']).reset_index(name='Benevol Grand Total %')
     st.write('Total Benevolent Disbursments as Pct of All Disbursments')
     st.bar_chart(
             pct_data,
