@@ -51,7 +51,7 @@ filtered_df = df[
         (df['Church'].isin(church_sel))
       ]
 
-tab_list = ['Member Data', 'General Data', 'Contributions Data', 'Benevol. Disbur. Data', 'Conregation Ops.']
+tab_list = ['Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
 member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
 
 # MEMBERS
