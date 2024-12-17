@@ -52,11 +52,15 @@ filtered_df = df[
         (df['Church'].isin(church_sel))
       ]
 
-st.subheader('Member Count Trends')
-st.bar_chart(
-  filtered_df.groupby(['Stat Year'])[['Comm', 'Non Comm']].sum(),
-  y = ['Comm', 'Non Comm']
-)
+tab_list = ['Member Data', 'General Data', 'Contributions Data', 'Benevol. Disbur. Data', 'Conregation Ops.']
+member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
+# MEMBERS
+with member_tab:
+        st.subheader('Member Count Trends')
+        st.bar_chart(
+          filtered_df.groupby(['Stat Year'])[['Comm', 'Non Comm']].sum(),
+          y = ['Comm', 'Non Comm']
+        )
 #st.scatter_chart(filtered_df, x ='Income,Gini Index Of Income Inequality,Gini Index,Estimate', y = "TOTAL_CONTRIB", color = "STAT_YEAR")
 #st.scatter_chart(df, x ='Housing Characteristics,Average Household Size Of Occupied Housing Units By Tenure,Average household size,Estimate', y = "TOTAL_CONTRIB", color = "STAT_YEAR")
 #st.scatter_chart(df, x ='Housing Characteristics,Median Selected Monthly Owner Costs As A Percentage Of Household Income In The Past 12 Months,Median selected monthly owner costs as a percentage of household income in the past 12 months,Estimate', y = "TOTAL_CONTRIB", color = "STAT_YEAR")
