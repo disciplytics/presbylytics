@@ -11,29 +11,36 @@ df = snowflake_connection('select * from analytics_data')
 # clean up columns
 df.columns = [i.strip("'") for i in df.columns]
 
-st.write(df)
-
 # create filters
 year_filter_col, city_filter_col, state_filter_col, church_filter_col = st.columns(4)
 
+
 with year_filter_col:
   year_sel = st.multiselect(
-    'Stat Year', df['STAT_YEAR'].unique().sort(), df['STAT_YEAR'].unique().sort()
+    'Stat Year', 
+    pd.Series(pd.unique(df['STAT_YEAR'])).sort_values(),
+    pd.Series(pd.unique(df['STAT_YEAR'])).sort_values()
   )
 
 with city_filter_col:
   city_sel = st.multiselect(
-    'City', df['CITY'].unique().sort(), df['CITY'].unique().sort()
+    'City', 
+    pd.Series(pd.unique(df['CITY'])).sort_values(),
+    pd.Series(pd.unique(df['CITY'])).sort_values()
   )
 
 with state_filter_col:
   state_sel = st.multiselect(
-    'State', df['STATE'].unique().sort(), df['STATE'].unique().sort()
+    'State', 
+    pd.Series(pd.unique(df['STATE'])).sort_values(),
+    pd.Series(pd.unique(df['STATE'])).sort_values()
   )
 
 with church_filter_col:
   church_sel = st.multiselect(
-    'Church Name', df['CHURCH'].unique().sort(), df['CHURCH'].unique().sort()
+    'Church Name',
+    pd.Series(pd.unique(df['CHURCH'])).sort_values(),
+    pd.Series(pd.unique(df['CHURCH'])).sort_values()
   )
 
 
