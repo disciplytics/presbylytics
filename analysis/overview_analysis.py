@@ -7,6 +7,12 @@ def overview_analysis(data):
   data['Total Members'] = data['Comm'] + data['Non Comm']
 
   total_mem_col, fus_col = st.columns(2)
+  st.write('Family Unit Size: (Comm + Non Comm) / Family Units')
+  st.bar_chart(
+            data.groupby(['Stat Year'])['Family Unit Size'].sum(),
+            y = 'Family Unit Size'
+          )
+
   with total_mem_col:
     st.write('Total Members: (Comm + Non Comm)')
     st.bar_chart(
@@ -14,10 +20,10 @@ def overview_analysis(data):
             y = 'Total Members'
           )
   with fus_col:
-    st.write('Family Unit Size: (Comm + Non Comm) / Family Units')
+    st.write('Family Units')
     st.bar_chart(
-            data.groupby(['Stat Year'])['Family Unit Size'].sum(),
-            y = 'Family Unit Size'
+            data.groupby(['Stat Year'])['Family Units'].sum(),
+            y = 'Family Units'
           )
   
 
