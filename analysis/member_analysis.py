@@ -15,7 +15,8 @@ def member_analysis(data):
     
   bar_chart(
           data.groupby(['Stat Year'])[additions + losses].sum(),
-          y = additions + losses
+          y = additions + losses,
+          stack = 'True'
   )
 
   #bar_chart(
