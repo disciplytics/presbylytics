@@ -10,6 +10,7 @@ df = snowflake_connection('select * from analytics_data')
 
 # clean up columns
 df.columns = [i.strip("'") for i in df.columns]
+df['STAT_YEAR'] = df['STAT_YEAR'].astype(str)
 
 # create filters
 year_filter_col, city_filter_col, state_filter_col, church_filter_col = st.columns(4)
@@ -52,8 +53,9 @@ filtered_df = df[
       ]
 
 st.line_chart(
-  x = filtered_df['STAT_YEAR'].astype(str),
-  y = filtered_df[['COMM', 'NON_COMM']]
+  filtered_df,
+  x = 'STAT_YEAR',
+  y = ['COMM', 'NON_COMM']
 )
 #st.scatter_chart(filtered_df, x ='Income,Gini Index Of Income Inequality,Gini Index,Estimate', y = "TOTAL_CONTRIB", color = "STAT_YEAR")
 #st.scatter_chart(df, x ='Housing Characteristics,Average Household Size Of Occupied Housing Units By Tenure,Average household size,Estimate', y = "TOTAL_CONTRIB", color = "STAT_YEAR")
