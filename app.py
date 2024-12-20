@@ -1,15 +1,6 @@
 import streamlit as st
 import pandas as pd
 from utils.utils import snowflake_connection
-#from analysis.member_analysis import member_analysis
-##from analysis.general_analysis import general_analysis
-#from analysis.contributions_analysis import contributions_analysis
-#from analysis.benevol_disburs_analysis import benevol_disburs_analysis
-#from analysis.congregational_ops_analysis import congregational_ops_analysis
-#from analysis.churchhealth_analysis import churchhealth_analysis 
-
-
-
 from reports.pca_deep_dives import deep_dive_report
 
 # set page configs
@@ -23,9 +14,14 @@ st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://p
 # logo
 #st.logo(image="images/dl_dark_logo.png", size = "large")
 
-with st.expander("Click to Learn More"):
-    st.write("This app displays the Presbyterian Church in America statistics in an interactive frontend for enhanced analysis.")
-    st.write("Breakdown the analysis by state, city, or all churches")
+
+exp_col, ws_col = st.columns([.4, .6])
+with exp_col:
+    with st.expander("Click to Learn More"):
+        st.write("This app displays the Presbyterian Church in America statistics in an interactive frontend for enhanced analysis.")
+        st.write("Breakdown the analysis by state, city, or all churches")
+
+
 
 # connect and load from snowflake
 df = snowflake_connection('select * from metrics_data where stat_year <> 0')
