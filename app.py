@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
 from utils.utils import snowflake_connection
-from analysis.member_analysis import member_analysis
-from analysis.general_analysis import general_analysis
-from analysis.contributions_analysis import contributions_analysis
-from analysis.benevol_disburs_analysis import benevol_disburs_analysis
-from analysis.congregational_ops_analysis import congregational_ops_analysis
-from analysis.churchhealth_analysis import churchhealth_analysis 
+#from analysis.member_analysis import member_analysis
+##from analysis.general_analysis import general_analysis
+#from analysis.contributions_analysis import contributions_analysis
+#from analysis.benevol_disburs_analysis import benevol_disburs_analysis
+#from analysis.congregational_ops_analysis import congregational_ops_analysis
+#from analysis.churchhealth_analysis import churchhealth_analysis 
 
 
 
