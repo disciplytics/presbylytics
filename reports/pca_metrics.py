@@ -186,21 +186,29 @@ def pca_metrics(df):
 
   with giving_tab:
     st.write(f'Per Capita Giving: {max_year}')
+    state_sel = st.selectbox('Select A State to See Cities: ', pd.Series(pd.unique(df['State'])).sort_values())
     
-    state_col, city_col = st.columns(2)
-
     # calc giving per capita
     gpcst = df[df['Stat Year'] == str(max_year)].groupby(['State'])[['Total Contrib', 'Comm']].sum().reset_index()
     gpcst = gpcst.groupby(['State']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
 
-    state_col.bar_chart(
-      gpcst, x = 'State', y = 'Per Capita Giving', horizontal = True)
+    st.bar_chart(
+      gpcst, x = 'State', y = 'Per Capita Giving', horizontal = False)
 
-    # calc giving per capita
-    gpcc = df[df['Stat Year'] == str(max_year)].groupby(['City'])[['Total Contrib', 'Comm']].sum().reset_index()
-    gpcc = gpcc.groupby(['City']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
+    
+    if state_sel:
+      city_col, church_col = st.columns(2)
+      # calc giving per capita
+      gpcc = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel)].groupby(['City'])[['Total Contrib', 'Comm']].sum().reset_index()
+      gpcc = gpcc.groupby(['City']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
+  
+      city_col.bar_chart(
+        gpcc, x = 'City', y = 'Per Capita Giving', horizontal = False)
 
-    city_col.bar_chart(
-      gpcc, x = 'City', y = 'Per Capita Giving', horizontal = True)
+      gpch = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel)].groupby(['Church'])[['Total Contrib', 'Comm']].sum().reset_index()
+      gpch = gpch.groupby(['Church']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
+  
+      church_col.bar_chart(
+        gpch, x = 'Church', y = 'Per Capita Giving', horizontal = False)
     
   
