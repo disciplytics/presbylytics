@@ -89,6 +89,6 @@ def pca_metrics(df):
   with pcb:
     get_pcb(df)
   with get_pce:
-    get_pcb(df)
+    get_pce(df)
   with pcbf:
     get_pcbf(df)
