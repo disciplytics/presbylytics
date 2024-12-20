@@ -6,7 +6,11 @@ from analysis.general_analysis import general_analysis
 from analysis.contributions_analysis import contributions_analysis
 from analysis.benevol_disburs_analysis import benevol_disburs_analysis
 from analysis.congregational_ops_analysis import congregational_ops_analysis
-from analysis.churchhealth_analysis import churchhealth_analysis
+from analysis.churchhealth_analysis import churchhealth_analysis 
+
+
+
+from reports.deep_dive_report import deep_dive_report
 
 # set page configs
 st.set_page_config(
@@ -38,6 +42,16 @@ report_selection = st.segmented_control(
 
 
 if report_selection == "PCA Stats Deep Dives":
+    deep_dive_report(df)
+
+
+
+
+
+
+
+
+    
     # create drilldown options
     options = ["All Churches", "Single Church"]
     selection = st.segmented_control(
