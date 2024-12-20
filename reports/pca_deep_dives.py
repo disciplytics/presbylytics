@@ -10,7 +10,6 @@ from analysis.churchhealth_analysis import churchhealth_analysis
 
 
 def deep_dive_report(df):
-  
   options = ["All Churches", "Single Church"]
   selection = st.segmented_control(
         "Drilldown Levels", options, selection_mode="single", default ="All Churches"
