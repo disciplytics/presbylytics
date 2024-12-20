@@ -2,10 +2,7 @@ def pca_metrics(df):
   import streamlit as st
   from millify import millify
 
-
-
-  st.subheader("Giving Metrics")
-
+  # giving metrics functions
   def get_pcg(df):
 
     # calc giving per capita
@@ -77,11 +74,47 @@ def pca_metrics(df):
               help = "Building Fund Per Capita = Building Fund / Comm")
 
 
+  def get_cpm(df):
 
+    # calc Comm rate
+    cpm = df.groupby(['Stat Year'])[['Non Comm', 'Comm']].sum().reset_index()
+    cpm['Total'] = cpm['Non Comm'] + cpm['Comm']
+    cpm = cpm.groupby(['Stat Year']).apply(lambda x: x['Comm'] / x['Total']).reset_index(name='Comm Per Members')
   
-
+    latest_year = cpm["Stat Year"].astype(int).max()
   
+    cpm_lastest = millify(cpm[cpm["Stat Year"] == str(latest_year)]["Comm Per Members"].values, precision=2)
+    cpm_2nd_lastest = millify(cpm[cpm["Stat Year"] == str(latest_year-1)]["Comm Per Members"].values, precision=2)
 
+    st.metric(label = "Comm Per Members", 
+              value = f'{latest_year}: {cpm_lastest}', 
+              delta= f'{latest_year-1}: {cpm_2nd_lastest}', 
+              delta_color="normal",
+             label_visibility="visible", 
+              help = "Comm / (Comm + NonComm)")
+
+  def get_mpfu(df):
+
+    # calc members per family units
+    mpfu = df.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Family Units']].sum().reset_index()
+    mpfu['Total'] = mpfu['Non Comm'] + cpm['Comm']
+    mpfu = mpfu.groupby(['Stat Year']).apply(lambda x: x['Family Units'] / x['Total']).reset_index(name='Family Unit Size')
+  
+    latest_year = mpfu["Stat Year"].astype(int).max()
+  
+    mpfu_lastest = millify(mpfu[mpfu["Stat Year"] == str(latest_year)]["Family Unit Size"].values, precision=2)
+    mpfu_2nd_lastest = millify(mpfu[mpfu["Stat Year"] == str(latest_year-1)]["Family Unit Size"].values, precision=2)
+
+    st.metric(label = "Family Unit Size", 
+              value = f'{latest_year}: {mpfu_lastest}', 
+              delta= f'{latest_year-1}: {mpfu_2nd_lastest}', 
+              delta_color="normal",
+             label_visibility="visible", 
+              help = "Total Members / Family Units")
+    
+
+
+  st.subheader("Giving Metrics")
   pcg, pcb, pce, pcbf = st.columns(4)
 
   with pcg:
@@ -92,3 +125,15 @@ def pca_metrics(df):
     get_pce(df)
   with pcbf:
     get_pcbf(df)
+
+
+  
+
+  st.subheader("Member Metrics")
+  cpm, mpfu, dpm, epm = st.columns(4)
+
+  with cpm:
+    get_cpm(df)
+  with mpfu:
+    get_mpfu(df)
+  
