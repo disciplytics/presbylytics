@@ -221,7 +221,7 @@ def pca_metrics(df):
     # calc deacons per members
     dpm = df[df['Stat Year'] == str(max_year)].groupby(['State'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
     dpm['Total'] = dpm['Non Comm'] + dpm['Comm']
-    dpm = dpm.groupby(['Stat Year']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
+    dpm = dpm.groupby(['State']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
 
     st.bar_chart(
       dpm, x = 'State', y = 'Deacons Per Members', horizontal = False)
