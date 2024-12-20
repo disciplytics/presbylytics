@@ -14,14 +14,10 @@ st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://p
 # logo
 #st.logo(image="images/dl_dark_logo.png", size = "large")
 
-
-exp_col, ws_col = st.columns([.4, .6])
-with exp_col:
-    with st.expander("Click to Learn More"):
-        st.write("This app displays the Presbyterian Church in America statistics in an interactive frontend for enhanced analysis.")
-        st.write("Breakdown the analysis by state, city, or all churches")
-
-
+# click to learn more expander
+with st.expander("Click to Learn More"):
+    st.write("This app displays the Presbyterian Church in America statistics in an interactive frontend for enhanced analysis.")
+    st.write("Breakdown the analysis by state, city, or all churches")
 
 # connect and load from snowflake
 df = snowflake_connection('select * from metrics_data where stat_year <> 0')
@@ -37,6 +33,7 @@ report_selection = st.segmented_control(
     "Report Types", report_options, selection_mode="single", default ="PCA Metrics"
 )
 
-
-if report_selection == "PCA Stats Deep Dives":
+if report_selection == "PCA Metrics":
+    st.markdown("**Do cool tings")
+elif report_selection == "PCA Stats Deep Dives":
     deep_dive_report(df)
