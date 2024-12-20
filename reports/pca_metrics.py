@@ -11,7 +11,6 @@ def pca_metrics(df):
     # calc giving per capita
     gpc = df.groupby(['Stat Year'])[['Total Contrib', 'Comm']].sum().reset_index()
     gpc = gpc.groupby(['Stat Year']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
-    gpc = gpc.sort_values(by = 'Stat Year', ascending=True)
   
     latest_year = gpc["Stat Year"].astype(int).max()
   
@@ -26,10 +25,32 @@ def pca_metrics(df):
               help = "PCG = Total Contrib / Comm")
 
 
+  def get_pcb(df):
+
+    'Benevolent Disbursements Per Capita: Total Benevolent Disbursements / Comm'
+
+    # calc Benevolent per capita
+    bpc = df.groupby(['Stat Year'])[['Total Benevolent Disbursements', 'Comm']].sum().reset_index()
+    bpc = bpc.groupby(['Stat Year']).apply(lambda x: x['Total Benevolent Disbursements'] / x['Comm']).reset_index(name='Benevolent Disbursements Per Capita')
+  
+    latest_year = bpc["Stat Year"].astype(int).max()
+  
+    bpc_lastest = millify(bpc[bpc["Stat Year"] == str(latest_year)]["Benevolent Disbursements Per Capita"].values, precision=2)
+    bpc_2nd_lastest = millify(bpc[bpc["Stat Year"] == str(latest_year-1)]["Benevolent Disbursements Per Capita"].values, precision=2)
+
+    st.metric(label = "Per Capita Giving", 
+              value = f'{latest_year}: {bpc_lastest}', 
+              delta= f'{latest_year-1}: {bpc_2nd_lastest}', 
+              delta_color="normal",
+             label_visibility="visible", 
+              help = "Benevolent Disbursements Per Capita = Total Benevolent Disbursements / Comm")
+
   
 
   pcg, pcb, pcc = st.columns(3)
 
   with pcg:
     get_pcg(df)
+  with pcb:
+    get_pcb(df)
     
