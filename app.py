@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from utils.utils import snowflake_connection
 from reports.pca_deep_dives import deep_dive_report
+from reports.pca_metrics import pca_metrics
 
 # set page configs
 st.set_page_config(
@@ -34,6 +35,7 @@ report_selection = st.segmented_control(
 )
 
 if report_selection == "PCA Metrics":
-    st.markdown("**Do cool tings")
+    pca_metrics(df)
+    
 elif report_selection == "PCA Stats Deep Dives":
     deep_dive_report(df)
