@@ -19,9 +19,9 @@ def pca_metrics(df):
   pcg, pcb, pcc = st.columns(3)
 
   with pcg:
-    st.metric(label = "PCG", 
+    st.metric(label = "Per Capita Giving", 
               value = f'{latest_year}: {pcg_lastest}', 
               delta= f'{latest_year-1}: {pcg_2nd_lastest}', 
               delta_color="normal",
              label_visibility="visible", 
-              help = "PCG: Per Capita Giving")
+              help = "PCG = Total Contrib / Comm ")
