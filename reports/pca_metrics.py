@@ -121,10 +121,10 @@ def pca_metrics(df):
   
     latest_year = dpm["Stat Year"].astype(int).max()
   
-    dpm_lastest = millify(dpm[dpm["Stat Year"] == str(latest_year)]["Deacons Per Members"].values, precision=2)
-    dpm_2nd_lastest = millify(dpm[dpm["Stat Year"] == str(latest_year-1)]["Deacons Per Members"].values, precision=2)
+    dpm_lastest = millify(dpm[dpm["Stat Year"] == str(latest_year)]["Deacons Per Members"].values*100, precision=2)
+    dpm_2nd_lastest = millify(dpm[dpm["Stat Year"] == str(latest_year-1)]["Deacons Per Members"].values*100, precision=2)
 
-    st.metric(label = "Deacons Per Member", 
+    st.metric(label = "Deacons Per 100 Members", 
               value = f'{latest_year}: {dpm_lastest}', 
               delta= f'{latest_year-1}: {dpm_2nd_lastest}', 
               delta_color="normal",
@@ -140,10 +140,10 @@ def pca_metrics(df):
   
     latest_year = epm["Stat Year"].astype(int).max()
   
-    epm_lastest = millify(epm[epm["Stat Year"] == str(latest_year)]["Ruling Elders Per Members"].values, precision=2)
-    epm_2nd_lastest = millify(epm[epm["Stat Year"] == str(latest_year-1)]["Ruling Elders Per Members"].values, precision=2)
+    epm_lastest = millify(epm[epm["Stat Year"] == str(latest_year)]["Ruling Elders Per Members"].values*100, precision=2)
+    epm_2nd_lastest = millify(epm[epm["Stat Year"] == str(latest_year-1)]["Ruling Elders Per Members"].values*100, precision=2)
 
-    st.metric(label = "Ruling Elders Per Member", 
+    st.metric(label = "Ruling Elders Per 100 Members", 
               value = f'{latest_year}: {epm_lastest}', 
               delta= f'{latest_year-1}: {epm_2nd_lastest}', 
               delta_color="normal",
