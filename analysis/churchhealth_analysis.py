@@ -59,7 +59,7 @@ def churchhealth_analysis(data):
   
   
 
-  st.subheader('Giving, Disbursements, & Expenses Metrics')
+  st.subheader('Giving, Disbursements, & Expenses Per Capita Health')
   data['Benevolent Disbursements Per Capita'] = data['Total Benevolent Disbursements'] / data['Comm']
   data['Congregational Expenses Per Capita'] = (data['Current Expenses'] +  data['Building Fund']) / data['Comm']
 
