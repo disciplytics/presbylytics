@@ -1,6 +1,7 @@
 def pca_metrics(df):
   import streamlit as st
   from millify import millify
+  import pandas as pd
 
   # giving metrics functions
   def get_pcg(df):
