@@ -178,3 +178,29 @@ def pca_metrics(df):
     get_dpm(df)
   with epm:
     get_epm(df)
+
+
+
+  giving_tab, members_tab = st.tabs(["Giving", "Members"])
+  max_year = df["Stat Year"].astype(int).max()
+
+  with giving_tab:
+    st.write(f'Per Capita Giving: {max_year}')
+    
+    state_col, city_col = st.columns(2)
+
+    # calc giving per capita
+    gpcst = df[df['Stat Year'] == str(max_year)].groupby(['State'])[['Total Contrib', 'Comm']].sum().reset_index()
+    gpcst = gpcst.groupby(['State']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
+
+    state_col.bar_chart(
+      gpcst, x = 'State', y = 'Per Capita Giving', horizontal = True)
+
+    # calc giving per capita
+    gpcc = df[df['Stat Year'] == str(max_year)].groupby(['City'])[['Total Contrib', 'Comm']].sum().reset_index()
+    gpcc = gpcc.groupby(['City']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
+
+    city_col.bar_chart(
+      gpcc, x = 'City', y = 'Per Capita Giving', horizontal = True)
+    
+  
