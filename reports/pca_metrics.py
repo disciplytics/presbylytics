@@ -97,7 +97,7 @@ def pca_metrics(df):
 
     # calc members per family units
     mpfu = df.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Family Units']].sum().reset_index()
-    mpfu['Total'] = mpfu['Non Comm'] + cpm['Comm']
+    mpfu['Total'] = mpfu['Non Comm'] + mpfu['Comm']
     mpfu = mpfu.groupby(['Stat Year']).apply(lambda x: x['Family Units'] / x['Total']).reset_index(name='Family Unit Size')
   
     latest_year = mpfu["Stat Year"].astype(int).max()
