@@ -216,7 +216,7 @@ def pca_metrics(df):
 
   with members_tab:
     st.write(f'Deacons Per Member: {max_year}')
-    state_sel = st.selectbox('Select A State to See Cities: ', pd.Series(pd.unique(df['State'])).sort_values())
+    state_sel_mem = st.selectbox('Select A State to See Cities: ', pd.Series(pd.unique(df['State'])).sort_values())
     
     # calc deacons per members
     dpm = df.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
@@ -227,10 +227,10 @@ def pca_metrics(df):
       dpm, x = 'State', y = 'Deacons Per Members', horizontal = False)
 
     
-    if state_sel:
+    if state_sel_mem:
       city_col, church_col = st.columns(2)
       # calc dpm
-      dpmc = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel)].groupby(['City'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
+      dpmc = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel_mem)].groupby(['City'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
       dpmc['Total'] = dpmc['Non Comm'] + dpmc['Comm']
       dpmc = dpmc.groupby(['City']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
   
@@ -238,7 +238,7 @@ def pca_metrics(df):
         dpmc, x = 'City', y = 'Per Capita Giving', horizontal = True)
 
       # calc deacons per members
-      dpmch = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel)].groupby(['Church'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
+      dpmch = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel_mem)].groupby(['Church'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
       dpmch['Total'] = dpmc['Non Comm'] + dpmc['Comm']
       dpmch = dpmch.groupby(['Church']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
   
