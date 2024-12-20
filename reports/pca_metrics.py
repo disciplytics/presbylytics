@@ -204,12 +204,12 @@ def pca_metrics(df):
       gpcc = gpcc.groupby(['City']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
   
       city_col.bar_chart(
-        gpcc, x = 'City', y = 'Per Capita Giving', horizontal = False)
+        gpcc, x = 'City', y = 'Per Capita Giving', horizontal = True)
 
       gpch = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel)].groupby(['Church'])[['Total Contrib', 'Comm']].sum().reset_index()
       gpch = gpch.groupby(['Church']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
   
       church_col.bar_chart(
-        gpch, x = 'Church', y = 'Per Capita Giving', horizontal = False)
+        gpch, x = 'Church', y = 'Per Capita Giving', horizontal = True)
     
   
