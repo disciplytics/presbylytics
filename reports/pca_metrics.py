@@ -235,7 +235,7 @@ def pca_metrics(df):
       dpmc = dpmc.groupby(['City']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
   
       city_col.bar_chart(
-        dpmc, x = 'City', y = 'Per Capita Giving', horizontal = True)
+        dpmc, x = 'City', y = 'Deacons Per Members', horizontal = True)
 
       # calc deacons per members
       dpmch = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel_mem)].groupby(['Church'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
@@ -244,5 +244,3 @@ def pca_metrics(df):
   
       church_col.bar_chart(
         dpmch, x = 'Church', y = 'Deacons Per Members', horizontal = True)
-    
-  
