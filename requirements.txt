@@ -6,3 +6,4 @@ pydeck
 geojson==3.1.0
 altair
 plotly
+millify
