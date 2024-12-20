@@ -47,7 +47,7 @@ def deep_dive_report(df):
     else:
       filtered_df = df.copy()
       tab_list = ['Church Health', 'Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
-            ch_tab, member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
+      ch_tab, member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
             
       # analyses
       with ch_tab:
