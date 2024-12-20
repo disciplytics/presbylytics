@@ -90,7 +90,7 @@ elif selection == "Single Church":
           )
         
         if state_sel:
-                filtered_df = df[df['State'].isin(state_sel)]
+                filtered_df = df[df['State'] == state_sel]
                 
                 city_sel = st.sidebar.selectbox(
             'Select Church City:', 
