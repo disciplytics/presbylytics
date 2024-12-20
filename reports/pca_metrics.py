@@ -111,6 +111,44 @@ def pca_metrics(df):
               delta_color="normal",
              label_visibility="visible", 
               help = "Family Units / Total Members")
+
+  def get_dpm(df):
+
+    # calc deacons per members
+    dpm = df.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
+    dpm['Total'] = dpm['Non Comm'] + dpm['Comm']
+    dpm = dpm.groupby(['Stat Year']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
+  
+    latest_year = dpm["Stat Year"].astype(int).max()
+  
+    dpm_lastest = millify(dpm[dpm["Stat Year"] == str(latest_year)]["Deacons Per Members"].values, precision=2)
+    dpm_2nd_lastest = millify(dpm[dpm["Stat Year"] == str(latest_year-1)]["Deacons Per Members"].values, precision=2)
+
+    st.metric(label = "Deacons Per Member", 
+              value = f'{latest_year}: {dpm_lastest}', 
+              delta= f'{latest_year-1}: {dpm_2nd_lastest}', 
+              delta_color="normal",
+             label_visibility="visible", 
+              help = "Deacons / Total Members")
+
+  def get_epm(df):
+
+    # calc elders per members
+    epm = df.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Ruling Elders']].sum().reset_index()
+    epm['Total'] = epm['Non Comm'] + epm['Comm']
+    epm = epm.groupby(['Stat Year']).apply(lambda x: x['Ruling Elders'] / x['Total']).reset_index(name='Ruling Elders Per Members')
+  
+    latest_year = epm["Stat Year"].astype(int).max()
+  
+    epm_lastest = millify(epm[epm["Stat Year"] == str(latest_year)]["Ruling Elders Per Members"].values, precision=2)
+    epm_2nd_lastest = millify(epm[epm["Stat Year"] == str(latest_year-1)]["Ruling Elders Per Members"].values, precision=2)
+
+    st.metric(label = "Ruling Elders Per Member", 
+              value = f'{latest_year}: {epm_lastest}', 
+              delta= f'{latest_year-1}: {epm_2nd_lastest}', 
+              delta_color="normal",
+             label_visibility="visible", 
+              help = "Ruling Elders / Total Members")
     
 
 
@@ -136,4 +174,8 @@ def pca_metrics(df):
     get_cpm(df)
   with mpfu:
     get_mpfu(df)
+  with dpm:
+    get_dpm(df)
+  with epm:
+    get_epm(df)
   
