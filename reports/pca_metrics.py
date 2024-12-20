@@ -11,8 +11,13 @@ def pca_metrics(df):
   gpc = gpc.groupby(['Stat Year']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
   gpc = gpc.sort_values(by = 'Stat Year', ascending=True)
 
-  st.write(f'{gpc["Per Capita Giving"].loc[0]} and {gpc["Stat Year"].loc[0]}')
-  st.write(f'{gpc["Per Capita Giving"].loc[1]} and {gpc["Stat Year"].loc[1]}')
+  latest_year = gpc["Stat Year"].astype(int).max()
+
+  pcg_lastest = gpc[gpc["Stat Year"] == str(latest_year)]["Per Capita Giving"]
+  pcg_2nd_lastest = gpc[gpc["Stat Year"] == str(latest_year-1)]["Per Capita Giving"]
+  
+  st.write(f'{pcg_lastest} and {str(latest_year)}')
+  st.write(f'{pcg_2nd_lastest} and {str(latest_year-1)}')
 
   
   
