@@ -108,22 +108,22 @@ elif selection == "Single Church":
                         filtered_df = filtered_df[filtered_df['Church'].isin(church_sel)]
                 
         
-        tab_list = ['Church Health', 'Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
-        ch_tab, member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
-        
-        # analyses
-        with ch_tab:
-                churchhealth_analysis(filtered_df)
-        with member_tab:
-                member_analysis(filtered_df)
-        with general_tab:
-                general_analysis(filtered_df)
-        with contrib_tab:
-                contributions_analysis(filtered_df)
-        with benevol_tab:
-                benevol_disburs_analysis(filtered_df)
-        with cong_ops_tab:
-                congregational_ops_analysis(filtered_df)        
+                tab_list = ['Church Health', 'Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
+                ch_tab, member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
+                
+                # analyses
+                with ch_tab:
+                        churchhealth_analysis(filtered_df)
+                with member_tab:
+                        member_analysis(filtered_df)
+                with general_tab:
+                        general_analysis(filtered_df)
+                with contrib_tab:
+                        contributions_analysis(filtered_df)
+                with benevol_tab:
+                        benevol_disburs_analysis(filtered_df)
+                with cong_ops_tab:
+                        congregational_ops_analysis(filtered_df)        
         
 
 
