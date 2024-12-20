@@ -16,6 +16,7 @@ from reports.pca_deep_dives import deep_dive_report
 st.set_page_config(
     page_title="PCA Analytics",
     layout="wide",)
+
 # title
 st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
 
@@ -23,8 +24,8 @@ st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://p
 #st.logo(image="images/dl_dark_logo.png", size = "large")
 
 with st.expander("Click to Learn More"):
-        st.write("This app displays the Presbyterian Church in America statistics in an interactive frontend for enhanced analysis.")
-        st.write("Breakdown the analysis by state, city, or all churches")
+    st.write("This app displays the Presbyterian Church in America statistics in an interactive frontend for enhanced analysis.")
+    st.write("Breakdown the analysis by state, city, or all churches")
 
 # connect and load from snowflake
 df = snowflake_connection('select * from metrics_data where stat_year <> 0')
@@ -43,7 +44,3 @@ report_selection = st.segmented_control(
 
 if report_selection == "PCA Stats Deep Dives":
     deep_dive_report(df)
-                with cong_ops_tab:
-                    congregational_ops_analysis(filtered_df)        
-            except:
-                st.write('Church has bad data. Select another option.')
