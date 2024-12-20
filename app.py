@@ -8,6 +8,10 @@ from analysis.benevol_disburs_analysis import benevol_disburs_analysis
 from analysis.congregational_ops_analysis import congregational_ops_analysis
 from analysis.churchhealth_analysis import churchhealth_analysis
 
+# set page configs
+st.set_page_config(
+    page_title="PCA Analytics",
+    layout="wide",)
 # title
 st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
 
