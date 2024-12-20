@@ -26,7 +26,7 @@ df['Stat Year'] = df['Stat Year'].astype(str)
 # create drilldown options
 options = ["All Churches", "Single Church"]
 selection = st.segmented_control(
-    "Drilldown Levels", options, selection_mode="single"
+    "Drilldown Levels", options, selection_mode="single", default ="All Churches"
 )
 
 if selection == "All Churches":
