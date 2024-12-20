@@ -1,4 +1,4 @@
-def overview_analysis(data):
+def churchhealth_analysis(data):
   import streamlit as st
   st.subheader('Metrics Overview')
 
