@@ -211,5 +211,38 @@ def pca_metrics(df):
   
       church_col.bar_chart(
         gpch, x = 'Church', y = 'Per Capita Giving', horizontal = True)
+
+
+
+  with members_tab:
+    st.write(f'Deacons Per Member: {max_year}')
+    state_sel = st.selectbox('Select A State to See Cities: ', pd.Series(pd.unique(df['State'])).sort_values())
+    
+    # calc deacons per members
+    dpm = df.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
+    dpm['Total'] = dpm['Non Comm'] + dpm['Comm']
+    dpm = dpm.groupby(['Stat Year']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
+
+    st.bar_chart(
+      dpm, x = 'State', y = 'Deacons Per Members', horizontal = False)
+
+    
+    if state_sel:
+      city_col, church_col = st.columns(2)
+      # calc dpm
+      dpmc = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel)].groupby(['City'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
+      dpmc['Total'] = dpmc['Non Comm'] + dpmc['Comm']
+      dpmc = dpmc.groupby(['City']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
+  
+      city_col.bar_chart(
+        dpmc, x = 'City', y = 'Per Capita Giving', horizontal = True)
+
+      # calc deacons per members
+      dpmch = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel)].groupby(['Church'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
+      dpmch['Total'] = dpmc['Non Comm'] + dpmc['Comm']
+      dpmch = dpmch.groupby(['Church']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
+  
+      church_col.bar_chart(
+        dpmch, x = 'Church', y = 'Deacons Per Members', horizontal = True)
     
   
