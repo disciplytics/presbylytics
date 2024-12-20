@@ -15,7 +15,9 @@ def pca_metrics(df):
 
   pcg_lastest = millify(gpc[gpc["Stat Year"] == str(latest_year)]["Per Capita Giving"].values, precision=2)
   pcg_2nd_lastest = millify(gpc[gpc["Stat Year"] == str(latest_year-1)]["Per Capita Giving"].values, precision=2)
-  
+
+
+  st.metric(label = "PCG", value = pcg_lastest, delta=pcg_2nd_lastest, delta_color="normal")
   st.write(f'{pcg_lastest} and {str(latest_year)}')
   st.write(f'{pcg_2nd_lastest} and {str(latest_year-1)}')
 
