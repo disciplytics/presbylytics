@@ -11,6 +11,9 @@ from analysis.churchhealth_analysis import churchhealth_analysis
 # title
 st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
 
+# logo
+st.logo(icon_image="/images/dl_dark_logo.pg")
+
 with st.expander("Click to Learn More"):
         st.write("This app displays the Presbyterian Church in America statistics in an interactive frontend for enhanced analysis.")
         st.write("Breakdown the analysis by state, city, or all churches")
