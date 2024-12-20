@@ -9,10 +9,10 @@ def pca_metrics(df):
   # calc giving per capita
   gpc = df.groupby(['Stat Year'])[['Total Contrib', 'Comm']].sum().reset_index()
   gpc = gpc.groupby(['Stat Year']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
-  gpc = gpc.sort_values(by = 'Stat Year', ascending=False)
+  gpc = gpc.sort_values(by = 'Stat Year', ascending=True)
 
-  st.write(f'{gpc["Per Capita Giving"].loc[-1]} and {gpc["Stat Year"].loc[-1]}')
-
+  st.write(f'{gpc["Per Capita Giving"].loc[0]} and {gpc["Stat Year"].loc[0]}')
+  st.write(f'{gpc["Per Capita Giving"].loc[1]} and {gpc["Stat Year"].loc[1]}')
 
   
   
