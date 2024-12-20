@@ -43,51 +43,6 @@ report_selection = st.segmented_control(
 
 if report_selection == "PCA Stats Deep Dives":
     deep_dive_report(df)
-
-elif selection == "Single Church":
-    # create filters
-    st.sidebar.subheader("Filtering Options For A Single Church")
-    st.sidebar.write("Select A State")
-            
-    state_sel = st.sidebar.selectbox(
-                'Select Church State:', 
-                pd.Series(pd.unique(df['State'])).sort_values(),
-              )
-            
-    if state_sel:
-        filtered_df = df[df['State'] == state_sel]
-                    
-        city_sel = st.sidebar.selectbox(
-                'Select Church City:', 
-                pd.Series(pd.unique(filtered_df['City'])).sort_values(),
-              )
-            
-        filtered_df = filtered_df[filtered_df['City'] == city_sel]
-            
-        if city_sel:
-            church_sel = st.sidebar.selectbox(
-                        'Select Church Name:',
-                        pd.Series(pd.unique(filtered_df['Church'])).sort_values()
-                      )
-                    
-            filtered_df = filtered_df[filtered_df['Church'] == church_sel]
-                    
-            
-            tab_list = ['Church Health', 'Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
-            ch_tab, member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
-                    
-            # analyses
-            try:
-                with ch_tab:
-                    churchhealth_analysis(filtered_df)
-                with member_tab:
-                    member_analysis(filtered_df)
-                with general_tab:
-                    general_analysis(filtered_df)
-                with contrib_tab:
-                    contributions_analysis(filtered_df)
-                with benevol_tab:
-                    benevol_disburs_analysis(filtered_df)
                 with cong_ops_tab:
                     congregational_ops_analysis(filtered_df)        
             except:
