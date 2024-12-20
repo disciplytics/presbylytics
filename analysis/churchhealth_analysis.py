@@ -1,22 +1,30 @@
 def churchhealth_analysis(data):
   import streamlit as st
-  st.subheader('Metrics Overview')
+  st.subheader('Church Health')
 
-  st.subheader('Members & Family Metrics')
+  st.subheader('Members & Family Health')
+  st.write('Deacon and Elder per 100 Members')
   data['Total Members'] = data['Comm'] + data['Non Comm']
 
-  total_mem_col, fus_col = st.columns(2)
+  total_mem_col, comm_mem_col, noncomm_mem_col = st.columns(3)
   with total_mem_col:
     st.write('Total Members: (Comm + Non Comm)')
     st.bar_chart(
-            data.groupby(['Stat Year'])['Total Members'].sum(),
+            data.groupby(['Stat Year'])['Total Members'].sum()/100,
             y = 'Total Members'
           )
-  with fus_col:
-    st.write('Family Units')
+  with comm_mem_col:
+    st.write('Comm Members')
     st.bar_chart(
-            data.groupby(['Stat Year'])['Family Units'].sum(),
-            y = 'Family Units'
+            data.groupby(['Stat Year'])['Comm'].sum()/100,
+            y = 'Comm'
+          )
+
+  with noncomm_mem_col:
+    st.write('NonComm Members')
+    st.bar_chart(
+            data.groupby(['Stat Year'])['Non Comm'].sum()/100,
+            y = 'Non Comm'
           )
 
   deacon_members_col, elder_members_col = st.columns(2)
