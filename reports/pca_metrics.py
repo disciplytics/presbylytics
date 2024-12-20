@@ -221,10 +221,10 @@ def pca_metrics(df):
     # calc deacons per members
     dpm = df[df['Stat Year'] == str(max_year)].groupby(['State'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
     dpm['Total'] = dpm['Non Comm'] + dpm['Comm']
-    dpm = dpm.groupby(['State']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
+    dpm = dpm.groupby(['State']).apply(lambda x: 100*(x['Deacons'] / x['Total'])).reset_index(name='Deacons Per 100 Members')
 
     st.bar_chart(
-      dpm, x = 'State', y = 'Deacons Per Members', horizontal = False)
+      dpm, x = 'State', y = 'Deacons Per 100 Members', horizontal = False)
 
     
     if state_sel_mem:
@@ -232,15 +232,15 @@ def pca_metrics(df):
       # calc dpm
       dpmc = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel_mem)].groupby(['City'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
       dpmc['Total'] = dpmc['Non Comm'] + dpmc['Comm']
-      dpmc = dpmc.groupby(['City']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
+      dpmc = dpmc.groupby(['City']).apply(lambda x: 100*(x['Deacons'] / x['Total'])).reset_index(name='Deacons Per 100 Members')
   
       city_col.bar_chart(
-        dpmc, x = 'City', y = 'Deacons Per Members', horizontal = True)
+        dpmc, x = 'City', y = 'Deacons Per 100 Members', horizontal = True)
 
       # calc deacons per members
       dpmch = df[(df['Stat Year'] == str(max_year)) & (df['State'] == state_sel_mem)].groupby(['Church'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
       dpmch['Total'] = dpmch['Non Comm'] + dpmch['Comm']
-      dpmch = dpmch.groupby(['Church']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
+      dpmch = dpmch.groupby(['Church']).apply(lambda x: 100*(x['Deacons'] / x['Total'])).reset_index(name='Deacons Per 100 Members')
   
       church_col.bar_chart(
-        dpmch, x = 'Church', y = 'Deacons Per Members', horizontal = True)
+        dpmch, x = 'Church', y = 'Deacons Per 100 Members', horizontal = True)
