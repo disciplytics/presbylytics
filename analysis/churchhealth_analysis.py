@@ -1,9 +1,8 @@
 def churchhealth_analysis(data):
   import streamlit as st
-  st.subheader('Church Health')
 
-  st.subheader('Members & Family Health')
-  st.write('Deacon and Elder Allocation')
+  st.header('Members & Family Health')
+  st.subheader('Deacon and Elder Allocation')
   data['Total Members'] = data['Comm'] + data['Non Comm']
 
 
