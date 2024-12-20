@@ -81,7 +81,7 @@ if selection == "All Churches":
 
 elif selection == "Single Church":
         # create filters
-        st.sidebar.subheader("Filtering Options For A Deep Dive")
+        st.sidebar.subheader("Filtering Options For A Single Church")
         st.sidebar.write("Select A State")
         
         state_sel = st.sidebar.selectbox(
