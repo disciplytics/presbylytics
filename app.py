@@ -89,7 +89,7 @@ elif selection == "Single Church":
             pd.Series(pd.unique(df['State'])).sort_values(),
           )
         
-        if len(state_sel) == 1:
+        if state_sel:
                 filtered_df = df[df['State'].isin(state_sel)]
                 
                 city_sel = st.sidebar.selectbox(
