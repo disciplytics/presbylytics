@@ -219,7 +219,7 @@ def pca_metrics(df):
     state_sel_mem = st.selectbox('Select a State to See Cities: ', pd.Series(pd.unique(df['State'])).sort_values())
     
     # calc deacons per members
-    dpm = df.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
+    dpm = df[df['Stat Year'] == str(max_year)].groupby(['State'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
     dpm['Total'] = dpm['Non Comm'] + dpm['Comm']
     dpm = dpm.groupby(['Stat Year']).apply(lambda x: x['Deacons'] / x['Total']).reset_index(name='Deacons Per Members')
 
