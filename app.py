@@ -10,7 +10,7 @@ from analysis.churchhealth_analysis import churchhealth_analysis
 
 
 
-from reports.deep_dive_report import deep_dive_report
+from reports.pca_deep_dives import deep_dive_report
 
 # set page configs
 st.set_page_config(
