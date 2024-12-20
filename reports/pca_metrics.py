@@ -13,8 +13,8 @@ def pca_metrics(df):
 
   latest_year = gpc["Stat Year"].astype(int).max()
 
-  pcg_lastest = gpc[gpc["Stat Year"] == str(latest_year)]["Per Capita Giving"]
-  pcg_2nd_lastest = gpc[gpc["Stat Year"] == str(latest_year-1)]["Per Capita Giving"]
+  pcg_lastest = millify(gpc[gpc["Stat Year"] == str(latest_year)]["Per Capita Giving"].values)
+  pcg_2nd_lastest = millify(gpc[gpc["Stat Year"] == str(latest_year-1)]["Per Capita Giving"].values)
   
   st.write(f'{pcg_lastest} and {str(latest_year)}')
   st.write(f'{pcg_2nd_lastest} and {str(latest_year-1)}')
