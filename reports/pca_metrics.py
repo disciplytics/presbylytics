@@ -216,7 +216,7 @@ def pca_metrics(df):
 
   with members_tab:
     st.write(f'Deacons Per Member: {max_year}')
-    state_sel_mem = st.selectbox('Select A State to See Cities: ', pd.Series(pd.unique(df['State'])).sort_values())
+    state_sel_mem = st.selectbox('Select a State to See Cities: ', pd.Series(pd.unique(df['State'])).sort_values())
     
     # calc deacons per members
     dpm = df.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
