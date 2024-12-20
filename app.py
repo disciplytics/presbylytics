@@ -97,15 +97,15 @@ elif selection == "Single Church":
             pd.Series(pd.unique(filtered_df['City'])).sort_values(),
           )
         
-                filtered_df = filtered_df[filtered_df['City'].isin(city_sel)]
+                filtered_df = filtered_df[filtered_df['City'] == city_sel]
         
-                if len(city_sel) == 1:
+                if city_sel:
                         church_sel = st.sidebar.selectbox(
                     'Select Church Name:',
                     pd.Series(pd.unique(filtered_df['Church'])).sort_values()
                   )
                 
-                        filtered_df = filtered_df[filtered_df['Church'].isin(church_sel)]
+                        filtered_df = filtered_df[filtered_df['Church'] == church_sel]
                 
         
                 tab_list = ['Church Health', 'Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
