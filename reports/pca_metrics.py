@@ -82,7 +82,7 @@ def pca_metrics(df):
 
   
 
-  pcg, pcb, pce, pcbf = st.columns(e)
+  pcg, pcb, pce, pcbf = st.columns(4)
 
   with pcg:
     get_pcg(df)
