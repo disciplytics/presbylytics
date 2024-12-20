@@ -54,12 +54,12 @@ if len(state_sel) == 1:
 else:
         filtered_df = df.copy()
 
-tab_list = ['Overview', 'Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
-overview_tab, member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
+tab_list = ['Church Health', 'Member Data', 'General Data', 'Contributions Data', 'Benevolent Disbursements Data', 'Conregation Ops']
+ch_tab, member_tab, general_tab, contrib_tab, benevol_tab, cong_ops_tab = st.tabs(tab_list)
 
 # analyses
-with overview_tab:
-        overview_analysis(filtered_df)
+with ch_tab:
+        churchhealth_analysis(filtered_df)
 with member_tab:
         member_analysis(filtered_df)
 with general_tab:
