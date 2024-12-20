@@ -178,4 +178,3 @@ def pca_metrics(df):
     get_dpm(df)
   with epm:
     get_epm(df)
-  
