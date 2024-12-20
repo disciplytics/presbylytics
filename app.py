@@ -6,7 +6,7 @@ from analysis.general_analysis import general_analysis
 from analysis.contributions_analysis import contributions_analysis
 from analysis.benevol_disburs_analysis import benevol_disburs_analysis
 from analysis.congregational_ops_analysis import congregational_ops_analysis
-from analysis.overview_analysis import overview_analysis
+from analysis.churchhealth_analysis import churchhealth_analysis
 
 # title
 st.title('PCA Statistics :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
