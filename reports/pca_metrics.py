@@ -223,7 +223,3 @@ def pca_metrics(df):
 
     churchCol.bar_chart(
       dpmch, x = 'Church', y = 'Deacons Per 100 Members', horizontal = False)
-
-  
-      church_col.bar_chart(
-        dpmch, x = 'Church', y = 'Deacons Per 100 Members', horizontal = True)
