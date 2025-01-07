@@ -94,6 +94,27 @@ def pca_metrics(df):
       get_pcbf(df)
 
 
+    max_year = df["Stat Year"].astype(int).max()
+
+    st.write(f'Per Capita Giving: {max_year}')      
+    # calc giving per capita
+    stateCol, churchCol = st.columns(2)
+    
+    gpcst = df[df['Stat Year'] == str(max_year)].groupby(['State'])[['Total Contrib', 'Comm']].sum().reset_index()
+    gpcst = gpcst.groupby(['State']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
+
+    stateCol.bar_chart(
+        gpcst, x = 'State', y = 'Per Capita Giving', horizontal = True)
+
+    gpcch = df[df['Stat Year'] == str(max_year)].groupby(['Church'])[['Total Contrib', 'Comm']].sum().reset_index()
+    gpcch = gpcch.groupby(['Church']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
+  
+    churchCol.bar_chart(
+        gpcch, x = 'Church', y = 'Per Capita Giving', horizontal = True)
+
+
+
+
   with members_tab:
     def get_cpm(df):
   
@@ -187,18 +208,7 @@ def pca_metrics(df):
     
 
   giving_tab, members_tab = st.tabs(["Giving", "Members"])
-  max_year = df["Stat Year"].astype(int).max()
-
-  with giving_tab:
-    st.write(f'Per Capita Giving: {max_year}')
-    state_sel = st.selectbox('Select A State to See Cities: ', pd.Series(pd.unique(df['State'])).sort_values())
-    
-    # calc giving per capita
-    gpcst = df[df['Stat Year'] == str(max_year)].groupby(['State'])[['Total Contrib', 'Comm']].sum().reset_index()
-    gpcst = gpcst.groupby(['State']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
-
-    st.bar_chart(
-      gpcst, x = 'State', y = 'Per Capita Giving', horizontal = False)
+  
 
     
     if state_sel:
