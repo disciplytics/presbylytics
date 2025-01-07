@@ -80,37 +80,37 @@ def pca_metrics(df):
                label_visibility="visible", 
                 help = "Building Fund Per Capita = Building Fund / Comm")
 
-    st.subheader("Giving Metrics")
-    pcg, pcb = st.columns(2)
-    pce, pcbf = st.columns(2)
-    
-    with pcg:
-      get_pcg(df)
-    with pcb:
-      get_pcb(df)
-    with pce:
-      get_pce(df)
-    with pcbf:
-      get_pcbf(df)
-
-
-    max_year = df["Stat Year"].astype(int).max()
-
-    st.write(f'Per Capita Giving: {max_year}')      
-    # calc giving per capita
-    stateCol, churchCol = st.columns(2)
-    
-    gpcst = df[df['Stat Year'] == str(max_year)].groupby(['State'])[['Total Contrib', 'Comm']].sum().reset_index()
-    gpcst = gpcst.groupby(['State']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
-
-    stateCol.bar_chart(
-        gpcst, x = 'State', y = 'Per Capita Giving', horizontal = True)
-
-    gpcch = df[df['Stat Year'] == str(max_year)].groupby(['Church'])[['Total Contrib', 'Comm']].sum().reset_index()
-    gpcch = gpcch.groupby(['Church']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
+      st.subheader("Giving Metrics")
+      pcg, pcb = st.columns(2)
+      pce, pcbf = st.columns(2)
+      
+      with pcg:
+        get_pcg(df)
+      with pcb:
+        get_pcb(df)
+      with pce:
+        get_pce(df)
+      with pcbf:
+        get_pcbf(df)
   
-    churchCol.bar_chart(
-        gpcch, x = 'Church', y = 'Per Capita Giving', horizontal = True)
+  
+      max_year = df["Stat Year"].astype(int).max()
+  
+      st.write(f'Per Capita Giving: {max_year}')      
+      # calc giving per capita
+      stateCol, churchCol = st.columns(2)
+      
+      gpcst = df[df['Stat Year'] == str(max_year)].groupby(['State'])[['Total Contrib', 'Comm']].sum().reset_index()
+      gpcst = gpcst.groupby(['State']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
+  
+      stateCol.bar_chart(
+          gpcst, x = 'State', y = 'Per Capita Giving', horizontal = True)
+  
+      gpcch = df[df['Stat Year'] == str(max_year)].groupby(['Church'])[['Total Contrib', 'Comm']].sum().reset_index()
+      gpcch = gpcch.groupby(['Church']).apply(lambda x: x['Total Contrib'] / x['Comm']).reset_index(name='Per Capita Giving')
+    
+      churchCol.bar_chart(
+          gpcch, x = 'Church', y = 'Per Capita Giving', horizontal = True)
 
 
 
