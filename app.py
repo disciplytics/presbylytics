@@ -63,7 +63,8 @@ if report_selection == "PCA Overview":
             city_sel = st.selectbox(
                     "Select a City:",
                     df['City'].unique())
-            report_df = df[(df['City'] == city_sel) & (df['State'] == state_sel)]
+            inter_df = df[df['State'] == state_sel]
+            report_df = df[df['City'] == city_sel]
 
         elif breakoption == 'State':
             report_df = df[df['State'] == state_sel]
