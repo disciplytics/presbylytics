@@ -64,7 +64,7 @@ if report_selection == "PCA Overview":
                     "Select a City:",
                     df['City'].unique())
             inter_df = df[df['State'] == state_sel]
-            report_df = df[df['City'] == city_sel]
+            report_df = inter_df[inter_df['City'] == city_sel]
 
         elif breakoption == 'State':
             report_df = df[df['State'] == state_sel]
