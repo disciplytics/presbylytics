@@ -22,7 +22,7 @@ def member_analysis(data):
                label_visibility="visible", 
                 help = "Comm / (Comm + NonComm)")
   
-    def get_mpfu(data):
+  def get_mpfu(data):
   
       # calc members per family units
       mpfu = data.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Family Units']].sum().reset_index()
@@ -41,7 +41,7 @@ def member_analysis(data):
                label_visibility="visible", 
                 help = "Family Units / Total Members")
   
-    def get_dpm(data):
+  def get_dpm(data):
   
       # calc deacons per members
       dpm = data.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Deacons']].sum().reset_index()
@@ -60,7 +60,7 @@ def member_analysis(data):
                label_visibility="visible", 
                 help = "Deacons / Total Members")
   
-    def get_epm(data):
+  def get_epm(data):
   
       # calc elders per members
       epm = data.groupby(['Stat Year'])[['Non Comm', 'Comm', 'Ruling Elders']].sum().reset_index()
@@ -79,19 +79,19 @@ def member_analysis(data):
                label_visibility="visible", 
                 help = "Ruling Elders / Total Members")
 
-    st.subheader("Member Metrics")
+  st.subheader("Member Metrics")
   
-    cpm, mpfu = st.columns(2)
-    dpm, epm = st.columns(2)
+  cpm, mpfu = st.columns(2)
+  dpm, epm = st.columns(2)
   
-    with cpm:
-      get_cpm(data)
-    with mpfu:
-      get_mpfu(data)
-    with dpm:
-      get_dpm(data)
-    with epm:
-      get_epm(data)
+  with cpm:
+    get_cpm(data)
+  with mpfu:
+    get_mpfu(data)
+  with dpm:
+    get_dpm(data)
+  with epm:
+    get_epm(data)
 
   st.subheader('Member Count Trends')
   st.bar_chart(
