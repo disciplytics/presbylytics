@@ -45,17 +45,40 @@ if report_selection == "PCA Overview":
         "Select a Report Type:",
         ("Membership", "General", "Contributions", "Benevol. Disbursments", "Congregational Ops."),
     )
-    
+
+    # breakdowns
+    breakdown_options = ['All Churches', 'State', 'City']
+    breakoption = st.segmented_control(
+    "Breakdown By: ", breakdown_options, selection_mode="single", default ="All Churches"
+)
+
+    if breakdown_options == 'All Churches':
+        report_df = df.copy()
+    elif breakdown_options == 'State' or breakdown_options == 'City' :
+        state_sel = st.selectbox(
+                    "Select a State:",
+                    df['State'].unique())
+
+        if breakdown_options == 'City':
+            city_sel = st.selectbox(
+                    "Select a City:",
+                    df['City'].unique())
+            report_df = df[(df['City'] == city_sel) & (df['State'] == state_sel)]
+
+        elif breakdown_options == 'State':
+            report_df = df[df['State'] == state_sel]
+            
+    # populate the reports
     if reportoption == "Membership":
-        member_analysis(df)
+        member_analysis(report_df)
     elif reportoption == "General":
-        general_analysis(df)
+        general_analysis(report_df)
     elif reportoption == "Contributions":
-        contributions_analysis(df)
+        contributions_analysis(report_df)
     elif reportoption == "Benevol. Disbursments":
-        benevol_disburs_analysis(df)
+        benevol_disburs_analysis(report_df)
     elif reportoption == "Congregational Ops.":
-        congregational_ops_analysis(df)
+        congregational_ops_analysis(report_df)
     
 elif report_selection == "PCA Deep Dive":
     deep_dive_report(df)
