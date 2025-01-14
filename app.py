@@ -27,6 +27,8 @@ df = snowflake_connection('select * from analytics_data where stat_year <> 0')
 df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
 
 df['Stat Year'] = df['Stat Year'].astype(str)
+df['Longitude'] = df['Longitude'].astype(float)
+df['Latitude'] = df['Latitude'].astype(float)
 
 # map of churches
 st.map(df.dropna(), latitude = 'Latitude', longitude = 'Longitude')
