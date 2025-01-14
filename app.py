@@ -28,6 +28,11 @@ df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
 
 df['Stat Year'] = df['Stat Year'].astype(str)
 
+# select a report
+reportoption = st.selectbox(
+    "Select a Report Type:",
+    ("Membership", "General", "Contributions", "Benevol. Disbursments", "Congregational Ops."),
+)
 
 # create report type
 report_options = ["PCA Metrics" , "PCA Stats Deep Dives"]
