@@ -4,6 +4,10 @@ from utils.utils import snowflake_connection
 from reports.pca_deep_dives import deep_dive_report
 from reports.pca_metrics import pca_metrics
 from analysis.member_analysis import member_analysis
+from analysis.general_analysis import general_analysis
+from analysis.contributions_analysis import contributions_analysis
+from analysis.congregational_ops_analysis import congregational_ops_analysis
+from analysis.benevol_disburs_analysis import benevol_disburs_analysis
 
 # set page configs
 st.set_page_config(
@@ -37,6 +41,14 @@ reportoption = st.selectbox(
 
 if reportoption == "Membership":
     member_analysis(df)
+elif reportoption == "General":
+    general_analysis(df)
+elif reportoption == "Contributions":
+    contributions_analysis(df)
+elif reportoption == "Benevol. Disbursments":
+    benevol_disburs_analysis(df)
+elif reportoption == "Congregational Ops.":
+    congregational_ops_analysis(df)
 
 
 # create report type
