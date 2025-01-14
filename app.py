@@ -52,6 +52,10 @@ if report_selection == "PCA Overview":
     "Breakdown By: ", breakdown_options, selection_mode="single", default ="All Churches"
 )
 
+     st.write(type(pd.unique(df['State'])))
+    st.write(pd.unique(df['State']))
+    
+
     if breakoption == 'All Churches':
         report_df = df.copy()
     elif breakoption == 'State' or breakoption == 'City' :
