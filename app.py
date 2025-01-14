@@ -33,7 +33,7 @@ df['Latitude'] = df['Latitude'].astype(float)
 # 
 map_df = df[['Latitude', 'Longitude']].dropna().drop_duplicates()
 # map of churches
-st.map(map_df, latitude = 'Latitude', longitude = 'Longitude')
+st.dataframe(map_df)#, latitude = 'Latitude', longitude = 'Longitude')
 
 # create report type
 report_options = ["PCA Metrics" , "PCA Stats Deep Dives"]
