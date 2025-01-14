@@ -21,21 +21,13 @@ with st.expander("Click to Learn More"):
     st.write("Breakdown the analysis by state, city, or all churches")
 
 # connect and load from snowflake
-df = snowflake_connection('select * from analytics_data where stat_year <> 0')
+df = snowflake_connection('select * from metrics_data where stat_year <> 0')
 
 # clean up columns
 df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
 
 df['Stat Year'] = df['Stat Year'].astype(str)
-df['Longitude'] = df['Longitude'].astype(float)
-df['Latitude'] = df['Latitude'].astype(float)
 
-# 
-map_df = df[df['Stat Year'] == '2023']
-map_df = map_df[['Latitude', 'Longitude', 'City', 'State', 'Church']].dropna()
-map_df = map_df.drop_duplicates(subset=['City', 'State', 'Church'])
-# map of churches
-st.map(map_df, latitude = 'Latitude', longitude = 'Longitude')
 
 # create report type
 report_options = ["PCA Metrics" , "PCA Stats Deep Dives"]
