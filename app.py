@@ -43,7 +43,7 @@ reportoption = st.selectbox(
 # breakdowns
 breakdown_options = ['All Churches', 'State', 'City', 'Church']
 breakoption = st.segmented_control(
-    "Breakdown By: ", breakdown_options, selection_mode="single", default ="All Churches"
+    "Drill Down Level: ", breakdown_options, selection_mode="single", default ="All Churches"
 )
     
 
