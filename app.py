@@ -62,7 +62,7 @@ elif breakoption == 'State' or breakoption == 'City' or breakoption == 'Church':
                     "Select a City:",
                     sorted(pd.unique(inter_df['City'].dropna()).tolist())
             )
-        inter_2_df = inter_df[inter_df['City'] == city_sel]'
+        inter_2_df = inter_df[inter_df['City'] == city_sel]
         
         if breakoption == 'Church':
             church_sel = st.selectbox(
