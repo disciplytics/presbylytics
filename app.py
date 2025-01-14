@@ -32,9 +32,10 @@ df['Latitude'] = df['Latitude'].astype(float)
 
 # 
 map_df = df[df['Stat Year'] == '2023']
-map_df = map_df[['Latitude', 'Longitude']].dropna()
+st.dataframe(map_df)
+#map_df = map_df[['Latitude', 'Longitude']].dropna()
 # map of churches
-st.dataframe(map_df)#, latitude = 'Latitude', longitude = 'Longitude')
+#st.dataframe(map_df)#, latitude = 'Latitude', longitude = 'Longitude')
 
 # create report type
 report_options = ["PCA Metrics" , "PCA Stats Deep Dives"]
