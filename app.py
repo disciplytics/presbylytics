@@ -51,9 +51,6 @@ if report_selection == "PCA Overview":
     breakoption = st.segmented_control(
     "Breakdown By: ", breakdown_options, selection_mode="single", default ="All Churches"
 )
-
-    st.write(type(pd.unique(df['State'])))
-    st.write(pd.unique(df['State']))
     
 
     if breakoption == 'All Churches':
@@ -61,14 +58,15 @@ if report_selection == "PCA Overview":
     elif breakoption == 'State' or breakoption == 'City' :
         state_sel = st.selectbox(
                     "Select a State:",
-                    pd.unique(df['State']))
+                    pd.unique(df['State']).sort()
+        )
         
         inter_df = df[df['State'] == state_sel]
 
         if breakoption == 'City':
             city_sel = st.selectbox(
                     "Select a City:",
-                    pd.unique(inter_df['City'])
+                    pd.unique(inter_df['City']).sort()
             )
             report_df = inter_df[inter_df['City'] == city_sel]
 
