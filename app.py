@@ -33,32 +33,29 @@ df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
 
 df['Stat Year'] = df['Stat Year'].astype(str)
 
-# select a report
-reportoption = st.selectbox(
-    "Select a Report Type:",
-    ("Membership", "General", "Contributions", "Benevol. Disbursments", "Congregational Ops."),
+# create report type
+report_options = ["PCA Overview" , "PCA Stats Deep Dives"]
+report_selection = st.segmented_control(
+    "Report Types", report_options, selection_mode="single", default ="PCA Metrics"
 )
 
-if reportoption == "Membership":
-    member_analysis(df)
-elif reportoption == "General":
-    general_analysis(df)
-elif reportoption == "Contributions":
-    contributions_analysis(df)
-elif reportoption == "Benevol. Disbursments":
-    benevol_disburs_analysis(df)
-elif reportoption == "Congregational Ops.":
-    congregational_ops_analysis(df)
-
-
-# create report type
-#report_options = ["PCA Metrics" , "PCA Stats Deep Dives"]
-#report_selection = st.segmented_control(
-#    "Report Types", report_options, selection_mode="single", default ="PCA Metrics"
-#)
-
-#if report_selection == "PCA Metrics":
-#    pca_metrics(df)
+if report_selection == "PCA Overview":
+    # select a report
+    reportoption = st.selectbox(
+        "Select a Report Type:",
+        ("Membership", "General", "Contributions", "Benevol. Disbursments", "Congregational Ops."),
+    )
     
-#elif report_selection == "PCA Stats Deep Dives":
-#    deep_dive_report(df)
+    if reportoption == "Membership":
+        member_analysis(df)
+    elif reportoption == "General":
+        general_analysis(df)
+    elif reportoption == "Contributions":
+        contributions_analysis(df)
+    elif reportoption == "Benevol. Disbursments":
+        benevol_disburs_analysis(df)
+    elif reportoption == "Congregational Ops.":
+        congregational_ops_analysis(df)
+    
+elif report_selection == "PCA Stats Deep Dives":
+    deep_dive_report(df)
