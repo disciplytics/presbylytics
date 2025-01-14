@@ -31,7 +31,8 @@ df['Longitude'] = df['Longitude'].astype(float)
 df['Latitude'] = df['Latitude'].astype(float)
 
 # 
-map_df = df[['Latitude', 'Longitude']].dropna().drop_duplicates()
+map_df = df[df['Stat Year'] == '2023']
+map_df = map_df[['Latitude', 'Longitude']].dropna()
 # map of churches
 st.dataframe(map_df)#, latitude = 'Latitude', longitude = 'Longitude')
 
