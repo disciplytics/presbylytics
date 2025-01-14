@@ -52,7 +52,7 @@ if report_selection == "PCA Overview":
     "Breakdown By: ", breakdown_options, selection_mode="single", default ="All Churches"
 )
 
-     st.write(type(pd.unique(df['State'])))
+    st.write(type(pd.unique(df['State'])))
     st.write(pd.unique(df['State']))
     
 
