@@ -59,7 +59,7 @@ def contributions_analysis(data):
   
   def get_pcbf(data):
     # calc builing fund per capita
-    pcbf = df.groupby(['Stat Year'])[['Building Fund', 'Comm']].sum().reset_index()
+    pcbf = data.groupby(['Stat Year'])[['Building Fund', 'Comm']].sum().reset_index()
     pcbf = pcbf.groupby(['Stat Year']).apply(lambda x: x['Building Fund'] / x['Comm']).reset_index(name='Building Fund Per Capita')
     
     latest_year = pcbf["Stat Year"].astype(int).max()
@@ -86,10 +86,6 @@ def contributions_analysis(data):
     get_pce(data)
   with pcbf:
     get_pcbf(data)
-
-  
-  st.bar_chart(
-          gpcst, x = 'State', y = 'Per Capita Giving', horizontal = True)
 
   
   st.subheader('Contribution Trends')
