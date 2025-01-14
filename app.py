@@ -70,7 +70,7 @@ elif breakoption == 'State' or breakoption == 'City' or breakoption == 'Church':
             )
         report_df = inter_2_df[inter_2_df['Church'] == church_sel]
         
-        else:
+        elif breakoption == 'Church':
             report_df = inter_2_df.copy()
             
     elif breakoption == 'State':
