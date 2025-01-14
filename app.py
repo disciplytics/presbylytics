@@ -52,20 +52,20 @@ if report_selection == "PCA Overview":
     "Breakdown By: ", breakdown_options, selection_mode="single", default ="All Churches"
 )
 
-    if breakdown_options == 'All Churches':
-        report_df = df
-    elif breakdown_options == 'State' or breakdown_options == 'City' :
+    if breakoption == 'All Churches':
+        report_df = df.copy()
+    elif breakoption == 'State' or breakoption == 'City' :
         state_sel = st.selectbox(
                     "Select a State:",
                     df['State'].unique())
 
-        if breakdown_options == 'City':
+        if breakoption == 'City':
             city_sel = st.selectbox(
                     "Select a City:",
                     df['City'].unique())
             report_df = df[(df['City'] == city_sel) & (df['State'] == state_sel)]
 
-        elif breakdown_options == 'State':
+        elif breakoption == 'State':
             report_df = df[df['State'] == state_sel]
             
     # populate the reports
