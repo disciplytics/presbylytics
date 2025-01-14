@@ -41,7 +41,7 @@ reportoption = st.selectbox(
     )
 
 # breakdowns
-breakdown_options = ['All Churches', 'State', 'City']
+breakdown_options = ['All Churches', 'State', 'City', 'Church']
 breakoption = st.segmented_control(
     "Breakdown By: ", breakdown_options, selection_mode="single", default ="All Churches"
 )
@@ -49,7 +49,7 @@ breakoption = st.segmented_control(
 
 if breakoption == 'All Churches':
     report_df = df.copy()
-elif breakoption == 'State' or breakoption == 'City' :
+elif breakoption == 'State' or breakoption == 'City' or breakoption == 'Church':
     state_sel = st.selectbox(
                     "Select a State:",
                     sorted(pd.unique(df['State'].dropna()).tolist())
@@ -57,13 +57,21 @@ elif breakoption == 'State' or breakoption == 'City' :
         
     inter_df = df[df['State'] == state_sel]
 
-    if breakoption == 'City':
+    if breakoption == 'City' or breakoption == 'Church':
         city_sel = st.selectbox(
                     "Select a City:",
                     sorted(pd.unique(inter_df['City'].dropna()).tolist())
             )
-        report_df = inter_df[inter_df['City'] == city_sel]
-
+        inter_2_df = inter_df[inter_df['City'] == city_sel]
+        if breakoption == 'Church':
+            church_sel = st.selectbox(
+                    "Select a Church:",
+                    sorted(pd.unique(inter_df['Church'].dropna()).tolist())
+            )
+        report_df = inter_2_df[inter_2_df['Church'] == church_sel]
+        elif breakoption == 'City':
+            report_df = inter_2_df.copy()
+            
     elif breakoption == 'State':
         report_df = inter_df.copy()
             
