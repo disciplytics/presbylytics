@@ -21,7 +21,7 @@ with st.expander("Click to Learn More"):
     st.write("Breakdown the analysis by state, city, or all churches")
 
 # connect and load from snowflake
-df = snowflake_connection('select * from metrics_data where stat_year <> 0')
+df = snowflake_connection('select * from analytics_data where stat_year <> 0')
 
 # clean up columns
 df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
