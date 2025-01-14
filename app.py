@@ -53,7 +53,7 @@ if report_selection == "PCA Overview":
 )
 
     if breakdown_options == 'All Churches':
-        report_df = df.copy()
+        report_df = df
     elif breakdown_options == 'State' or breakdown_options == 'City' :
         state_sel = st.selectbox(
                     "Select a State:",
