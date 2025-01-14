@@ -29,7 +29,7 @@ df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
 df['Stat Year'] = df['Stat Year'].astype(str)
 
 # map of churches
-st.map(df[df[['Latitude', 'Longitude']].notna()], latitude = 'Latitude', longitude = 'Longitude')
+st.map(df[df[['Latitude', 'Longitude']].isna() == False], latitude = 'Latitude', longitude = 'Longitude')
 
 # create report type
 report_options = ["PCA Metrics" , "PCA Stats Deep Dives"]
