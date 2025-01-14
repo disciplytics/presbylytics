@@ -32,7 +32,7 @@ df['Latitude'] = df['Latitude'].astype(float)
 
 # 
 map_df = df[df['Stat Year'] == '2023']
-map_df = map_df[['Latitude', 'Longitude']].dropna()
+map_df = map_df[['Latitude', 'Longitude', 'City', 'State', 'Church']].dropna()
 map_df = map_df.drop_duplicates(subset=['City', 'State', 'Church'])
 # map of churches
 st.map(map_df, latitude = 'Latitude', longitude = 'Longitude')
