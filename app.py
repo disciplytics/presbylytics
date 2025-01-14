@@ -69,7 +69,8 @@ elif breakoption == 'State' or breakoption == 'City' or breakoption == 'Church':
                     sorted(pd.unique(inter_df['Church'].dropna()).tolist())
             )
         report_df = inter_2_df[inter_2_df['Church'] == church_sel]
-        elif breakoption == 'City':
+        
+        else:
             report_df = inter_2_df.copy()
             
     elif breakoption == 'State':
