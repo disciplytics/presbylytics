@@ -74,16 +74,19 @@ if report_selection == "PCA Overview":
             report_df = inter_df.copy()
             
     # populate the reports
-    if reportoption == "Membership":
-        member_analysis(report_df)
-    elif reportoption == "General":
-        general_analysis(report_df)
-    elif reportoption == "Contributions":
-        contributions_analysis(report_df)
-    elif reportoption == "Benevol. Disbursments":
-        benevol_disburs_analysis(report_df)
-    elif reportoption == "Congregational Ops.":
-        congregational_ops_analysis(report_df)
+    try:
+        if reportoption == "Membership":
+            member_analysis(report_df)
+        elif reportoption == "General":
+            general_analysis(report_df)
+        elif reportoption == "Contributions":
+            contributions_analysis(report_df)
+        elif reportoption == "Benevol. Disbursments":
+            benevol_disburs_analysis(report_df)
+        elif reportoption == "Congregational Ops.":
+            congregational_ops_analysis(report_df)
+    except:
+        st.write('Data is not good! Select Other Data.')
     
 elif report_selection == "PCA Deep Dive":
     deep_dive_report(df)
