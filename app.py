@@ -3,6 +3,7 @@ import pandas as pd
 from utils.utils import snowflake_connection
 from reports.pca_deep_dives import deep_dive_report
 from reports.pca_metrics import pca_metrics
+from analysis.member_analysis import member_analysis
 
 # set page configs
 st.set_page_config(
@@ -34,14 +35,18 @@ reportoption = st.selectbox(
     ("Membership", "General", "Contributions", "Benevol. Disbursments", "Congregational Ops."),
 )
 
-# create report type
-report_options = ["PCA Metrics" , "PCA Stats Deep Dives"]
-report_selection = st.segmented_control(
-    "Report Types", report_options, selection_mode="single", default ="PCA Metrics"
-)
+if reportoption == "Membership":
+    member_analysis(df)
 
-if report_selection == "PCA Metrics":
-    pca_metrics(df)
+
+# create report type
+#report_options = ["PCA Metrics" , "PCA Stats Deep Dives"]
+#report_selection = st.segmented_control(
+#    "Report Types", report_options, selection_mode="single", default ="PCA Metrics"
+#)
+
+#if report_selection == "PCA Metrics":
+#    pca_metrics(df)
     
-elif report_selection == "PCA Stats Deep Dives":
-    deep_dive_report(df)
+#elif report_selection == "PCA Stats Deep Dives":
+#    deep_dive_report(df)
