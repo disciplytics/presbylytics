@@ -34,9 +34,9 @@ df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
 df['Stat Year'] = df['Stat Year'].astype(str)
 
 # create report type
-report_options = ["PCA Overview" , "PCA Stats Deep Dives"]
+report_options = ["PCA Overview" , "PCA Deep Dive"]
 report_selection = st.segmented_control(
-    "Report Types", report_options, selection_mode="single", default ="PCA Overview"
+    "Analyses: ", report_options, selection_mode="single", default ="PCA Overview"
 )
 
 if report_selection == "PCA Overview":
@@ -57,5 +57,5 @@ if report_selection == "PCA Overview":
     elif reportoption == "Congregational Ops.":
         congregational_ops_analysis(df)
     
-elif report_selection == "PCA Stats Deep Dives":
+elif report_selection == "PCA Deep Dive":
     deep_dive_report(df)
