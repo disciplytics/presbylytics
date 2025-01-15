@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import pydeck as pdk
+import pydeck
 from utils.utils import snowflake_connection
 from reports.pca_deep_dives import deep_dive_report
 from reports.pca_metrics import pca_metrics
