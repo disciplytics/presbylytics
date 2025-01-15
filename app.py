@@ -111,18 +111,18 @@ elif analysis == "Spatial Reports":
 
     spdf = spdf.drop_duplicates(subset=['Church', 'State', 'City']).dropna()
 
-    st.subheader('Spatial Analysis of 2023 Data and a subset of churches')
+    st.subheader('Spatial Analysis of 2023 Data and a Subset of Churches')
     reportoption = st.selectbox(
             "Select a Report Type:",
             ("Contributions", "Members"),
         )
 
     if reportoption == "Contributions":
-        st.map(df = spdf[['Longitude', 'Latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']], size = 'Total Contrib')
+        st.map(spdf[['Longitude', 'Latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']], size = 'Total Contrib')
     elif reportoption == "Members":
         mem_df = spdf[['Longitude', 'Latitude', 'Church', 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
         mem_df['Total Members'] = mem_df['Comm'] + mem_df['Non Comm']
-        st.map(df = mem_df, size = 'Total Members')
+        st.map(mem_df, size = 'Total Members')
     else:
         st.subheader('Select an analysis to get started.')
 
