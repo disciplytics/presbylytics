@@ -123,16 +123,16 @@ elif analysis == "Spatial Reports":
     if reportoption == "Contributions":
 
         chart_data = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']]
-
+        chart_data['size'] = chart_data['Total Contrib'] * 100
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
                         id="Church-City-State-Zip",
                         get_position=["longitude", "latitude"],
-                        get_color="[0, 0, 0]",
+                        get_color="[255, 75, 75]",
                         pickable=True,
                         auto_highlight=True,
-                        get_radius="Total Contrib",
+                        get_radius="size",
                     )
 
         view_state = pydeck.ViewState(
@@ -153,16 +153,16 @@ elif analysis == "Spatial Reports":
         chart_data['Total Members'] = chart_data['Comm'] + chart_data['Non Comm']
 
         chart_data = chart_data[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Members']]
-
+        chart_data['size'] = chart_data['Total Members'] * 100
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
                         id="Church-City-State-Zip",
                         get_position=["longitude", "latitude"],
-                        get_color="[0, 0, 0]",
+                        get_color="[255, 75, 75]",
                         pickable=True,
                         auto_highlight=True,
-                        get_radius="Total Members",
+                        get_radius="size",
                     )
 
         view_state = pydeck.ViewState(
