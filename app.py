@@ -132,7 +132,7 @@ elif analysis == "Spatial Reports":
                         get_color="[255, 75, 75]",
                         pickable=True,
                         auto_highlight=True,
-                        get_radius="size",
+                        get_radius="Total Contrib",
                     )
 
         view_state = pydeck.ViewState(
@@ -149,9 +149,34 @@ elif analysis == "Spatial Reports":
     
     
     elif reportoption == "Members":
-        mem_df = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
-        mem_df['Total Members'] = mem_df['Comm'] + mem_df['Non Comm']
-        st.map(mem_df, size = 'Total Members')
+        chart_data = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
+        chart_data['Total Members'] = chart_data['Comm'] + chart_data['Non Comm']
+
+        chart_data = chart_data[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']]
+
+        point_layer = pydeck.Layer(
+                        "ScatterplotLayer",
+                        data=chart_data,
+                        id="Church",
+                        get_position=["longitude", "latitude"],
+                        get_color="[255, 75, 75]",
+                        pickable=True,
+                        auto_highlight=True,
+                        get_radius="Total Members",
+                    )
+
+        view_state = pydeck.ViewState(
+        latitude=40, longitude=-117, controller=True, zoom=2.4, pitch=15
+    )
+    
+        chart = pydeck.Deck(
+            point_layer,
+            initial_view_state=view_state,
+            tooltip={"text": "{Church}, {City}, {State}\Total Members: {Total Members}"},
+        )
+        
+        event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
+        
     else:
         st.subheader('Select an analysis to get started.')
 
