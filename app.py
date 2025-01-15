@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import pydeck as pdk
 from utils.utils import snowflake_connection
 from reports.pca_deep_dives import deep_dive_report
 from reports.pca_metrics import pca_metrics
@@ -120,7 +121,36 @@ elif analysis == "Spatial Reports":
         )
 
     if reportoption == "Contributions":
-        st.map(spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']], size = 'Total Contrib')
+        #st.map(spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']], size = 'Total Contrib')
+
+        chart_data = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']]
+
+        point_layer = pydeck.Layer(
+                        "ScatterplotLayer",
+                        data=chart_data,
+                        id="Church",
+                        get_position=["longitude", "latitude"],
+                        get_color="[255, 75, 75]",
+                        pickable=True,
+                        auto_highlight=True,
+                        get_radius="size",
+                    )
+
+        view_state = pydeck.ViewState(
+        latitude=40, longitude=-117, controller=True, zoom=2.4, pitch=30
+    )
+    
+        chart = pydeck.Deck(
+            point_layer,
+            initial_view_state=view_state,
+            tooltip={"text": "{Church}, {City}, {State}\Total Contrib: {Total Contrib}"},
+        )
+        
+        event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
+        
+        event.selection
+
+    
     elif reportoption == "Members":
         mem_df = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
         mem_df['Total Members'] = mem_df['Comm'] + mem_df['Non Comm']
