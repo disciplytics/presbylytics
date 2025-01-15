@@ -108,6 +108,8 @@ elif analysis == "Spatial Reports":
     spdf.columns = [i.strip("'").replace("_", " ").title() for i in spdf.columns]
 
     spdf['Stat Year'] = spdf['Stat Year'].astype(str)
+    spdf['latitude'] = spdf['Latitude'].astype(float)
+    spdf['longitude'] = spdf['Longitude'].astype(float)
 
     spdf = spdf.drop_duplicates(subset=['Church', 'State', 'City']).dropna()
 
@@ -118,9 +120,9 @@ elif analysis == "Spatial Reports":
         )
 
     if reportoption == "Contributions":
-        st.map(spdf[['Longitude', 'Latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']], size = 'Total Contrib')
+        st.map(spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']], size = 'Total Contrib')
     elif reportoption == "Members":
-        mem_df = spdf[['Longitude', 'Latitude', 'Church', 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
+        mem_df = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
         mem_df['Total Members'] = mem_df['Comm'] + mem_df['Non Comm']
         st.map(mem_df, size = 'Total Members')
     else:
