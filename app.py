@@ -122,12 +122,12 @@ elif analysis == "Spatial Reports":
 
     if reportoption == "Contributions":
 
-        chart_data = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']]
+        chart_data = spdf[['longitude', 'latitude', 'Church', 'Total Contrib']]
         chart_data['size'] = chart_data['Total Contrib'] * 10
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
-                        id="Church-City-State-Zip",
+                        id="Church",
                         get_position=["longitude", "latitude"],
                         get_color="[255, 75, 75]",
                         pickable=True,
@@ -142,22 +142,22 @@ elif analysis == "Spatial Reports":
         chart = pydeck.Deck(
             point_layer,
             initial_view_state=view_state,
-            tooltip={"text": "{Church}, {City}, {State}\Total Contrib: {Total Contrib}"},
+            tooltip={"text": "{Church} /n Total Contrib: {Total Contrib}"},
         )
         
         event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
     
     
     elif reportoption == "Members":
-        chart_data = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
+        chart_data = spdf[['longitude', 'latitude', 'Church', 'Comm', 'Non Comm']]
         chart_data['Total Members'] = chart_data['Comm'] + chart_data['Non Comm']
 
-        chart_data = chart_data[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Members']]
-        chart_data['size'] = chart_data['Total Members'] * 10
+        chart_data = chart_data[['longitude', 'latitude', 'Church', 'Total Members']]
+        chart_data['size'] = chart_data['Total Members'] * 15
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
-                        id="Church-City-State-Zip",
+                        id="Church",
                         get_position=["longitude", "latitude"],
                         get_color="[255, 75, 75]",
                         pickable=True,
@@ -172,7 +172,7 @@ elif analysis == "Spatial Reports":
         chart = pydeck.Deck(
             point_layer,
             initial_view_state=view_state,
-            tooltip={"text": "{Church}, {City}, {State}\Total Members: {Total Members}"},
+            tooltip={"text": "{Church} \n Total Members: {Total Members}"},
         )
         
         event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
