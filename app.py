@@ -33,62 +33,82 @@ df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
 
 df['Stat Year'] = df['Stat Year'].astype(str)
 
-# create report type
-# select a report
-reportoption = st.selectbox(
-        "Select a Report Type:",
-        ("Membership", "General", "Contributions", "Benevol. Disbursments", "Congregational Ops."),
-    )
-
-# breakdowns
-breakdown_options = ['All Churches', 'State', 'City', 'Church']
-breakoption = st.segmented_control(
-    "Drill Down Level: ", breakdown_options, selection_mode="single", default ="All Churches"
+# analyses
+analyses = ['Trend Reports', 'Spatial Reports']
+analysis = st.segmented_control(
+    "Drill Down Level: ", analyses, selection_mode="single", default ="Trend Reports"
 )
-    
 
-if breakoption == 'All Churches':
-    report_df = df.copy()
-elif breakoption == 'State' or breakoption == 'City' or breakoption == 'Church':
-    state_sel = st.selectbox(
-                    "Select a State:",
-                    sorted(pd.unique(df['State'].dropna()).tolist())
+if analysis = "Trend Reports":
+    # create report type
+    # select a report
+    reportoption = st.selectbox(
+            "Select a Report Type:",
+            ("Membership", "General", "Contributions", "Benevol. Disbursments", "Congregational Ops."),
         )
+    
+    # breakdowns
+    breakdown_options = ['All Churches', 'State', 'City', 'Church']
+    breakoption = st.segmented_control(
+        "Drill Down Level: ", breakdown_options, selection_mode="single", default ="All Churches"
+    )
         
-    inter_df = df[df['State'] == state_sel]
-
-    if breakoption == 'City' or breakoption == 'Church':
-        city_sel = st.selectbox(
-                    "Select a City:",
-                    sorted(pd.unique(inter_df['City'].dropna()).tolist())
+    
+    if breakoption == 'All Churches':
+        report_df = df.copy()
+    elif breakoption == 'State' or breakoption == 'City' or breakoption == 'Church':
+        state_sel = st.selectbox(
+                        "Select a State:",
+                        sorted(pd.unique(df['State'].dropna()).tolist())
             )
-        inter_2_df = inter_df[inter_df['City'] == city_sel]
-        
-        if breakoption == 'Church':
-            church_sel = st.selectbox(
-                        "Select a Church:",
-                        sorted(pd.unique(inter_2_df['Church'].dropna()).tolist())
+            
+        inter_df = df[df['State'] == state_sel]
+    
+        if breakoption == 'City' or breakoption == 'Church':
+            city_sel = st.selectbox(
+                        "Select a City:",
+                        sorted(pd.unique(inter_df['City'].dropna()).tolist())
                 )
+            inter_2_df = inter_df[inter_df['City'] == city_sel]
+            
+            if breakoption == 'Church':
+                church_sel = st.selectbox(
+                            "Select a Church:",
+                            sorted(pd.unique(inter_2_df['Church'].dropna()).tolist())
+                    )
+                    
+                report_df = inter_2_df[inter_2_df['Church'] == church_sel]
+            
+            elif breakoption == 'City':
+                report_df = inter_2_df.copy()
                 
-            report_df = inter_2_df[inter_2_df['Church'] == church_sel]
+        elif breakoption == 'State':
+            report_df = inter_df.copy()
+                
+    # populate the reports
+    try:
+        if reportoption == "Membership":
+            member_analysis(report_df)
+        elif reportoption == "General":
+            general_analysis(report_df)
+        elif reportoption == "Contributions":
+            contributions_analysis(report_df)
+        elif reportoption == "Benevol. Disbursments":
+            benevol_disburs_analysis(report_df)
+        elif reportoption == "Congregational Ops.":
+            congregational_ops_analysis(report_df)
+    except:
+        st.write('Data is not good! Select Other Data.')
         
-        elif breakoption == 'City':
-            report_df = inter_2_df.copy()
-            
-    elif breakoption == 'State':
-        report_df = inter_df.copy()
-            
-# populate the reports
-try:
-    if reportoption == "Membership":
-        member_analysis(report_df)
-    elif reportoption == "General":
-        general_analysis(report_df)
-    elif reportoption == "Contributions":
-        contributions_analysis(report_df)
-    elif reportoption == "Benevol. Disbursments":
-        benevol_disburs_analysis(report_df)
-    elif reportoption == "Congregational Ops.":
-        congregational_ops_analysis(report_df)
-except:
-    st.write('Data is not good! Select Other Data.')
+elif analysis = "Spatial Reports":
+    # connect and load from snowflake
+    spdf = snowflake_connection('select * from spatial_analytics_data where stat_year <> 0')
+    
+    # clean up columns
+    spdf.columns = [i.strip("'").replace("_", " ").title() for i in spdf.columns]
+    
+    spdf['Stat Year'] = spdf['Stat Year'].astype(str)
+
+    spdf = spdf.drop_duplicates(subset=['Church', 'State', 'City'])
+
+    st.dataframe(spdf)
