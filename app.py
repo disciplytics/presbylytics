@@ -127,7 +127,7 @@ elif analysis == "Spatial Reports":
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
-                        id="Church",
+                        id="Church-City-State-Zip",
                         get_position=["longitude", "latitude"],
                         get_color="[255, 75, 75]",
                         pickable=True,
@@ -157,7 +157,7 @@ elif analysis == "Spatial Reports":
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
-                        id="Church",
+                        id="Church-City-State-Zip",
                         get_position=["longitude", "latitude"],
                         get_color="[255, 75, 75]",
                         pickable=True,
