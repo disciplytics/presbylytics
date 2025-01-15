@@ -152,7 +152,7 @@ elif analysis == "Spatial Reports":
         chart_data = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
         chart_data['Total Members'] = chart_data['Comm'] + chart_data['Non Comm']
 
-        chart_data = chart_data[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']]
+        chart_data = chart_data[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Members']]
 
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
