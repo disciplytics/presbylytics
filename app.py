@@ -107,11 +107,13 @@ elif analysis == "Spatial Reports":
     # clean up columns
     spdf.columns = [i.strip("'").replace("_", " ").title() for i in spdf.columns]
 
+    spdf['Stat Year'] = spdf['Stat Year'].astype(str)
+
+    spdf = spdf.drop_duplicates(subset=['Church', 'State', 'City']).dropna()
+
+    st.dataframe(spdf)
+
 else:
     st.subheader('Select an analysis to get started.')
     
-    spdf['Stat Year'] = spdf['Stat Year'].astype(str)
-
-    spdf = spdf.drop_duplicates(subset=['Church', 'State', 'City'])
-
-    st.dataframe(spdf)
+    
