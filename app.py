@@ -118,9 +118,9 @@ elif analysis == "Spatial Reports":
         )
 
     if reportoption == "Contributions":
-        st.map(df = spdf[['Longitude', 'Latitude', 'Church' 'City', 'State', 'Zip', 'Total Contrib']], size = 'Total Contrib')
+        st.map(df = spdf[['Longitude', 'Latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']], size = 'Total Contrib')
     elif reportoption == "Members":
-        mem_df = spdf[['Longitude', 'Latitude', 'Church' 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
+        mem_df = spdf[['Longitude', 'Latitude', 'Church', 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
         mem_df['Total Members'] = mem_df['Comm'] + mem_df['Non Comm']
         st.map(df = mem_df, size = 'Total Members')
     else:
