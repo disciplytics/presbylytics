@@ -121,7 +121,6 @@ elif analysis == "Spatial Reports":
         )
 
     if reportoption == "Contributions":
-        #st.map(spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']], size = 'Total Contrib')
 
         chart_data = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Total Contrib']]
 
@@ -137,7 +136,7 @@ elif analysis == "Spatial Reports":
                     )
 
         view_state = pydeck.ViewState(
-        latitude=40, longitude=-117, controller=True, zoom=2.4, pitch=30
+        latitude=40, longitude=-117, controller=True, zoom=2.4, pitch=15
     )
     
         chart = pydeck.Deck(
@@ -147,9 +146,7 @@ elif analysis == "Spatial Reports":
         )
         
         event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
-        
-        event.selection
-
+    
     
     elif reportoption == "Members":
         mem_df = spdf[['longitude', 'latitude', 'Church', 'City', 'State', 'Zip', 'Comm', 'Non Comm']]
