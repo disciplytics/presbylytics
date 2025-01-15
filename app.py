@@ -39,7 +39,7 @@ analysis = st.segmented_control(
     "Drill Down Level: ", analyses, selection_mode="single", default ="Trend Reports"
 )
 
-if analysis = "Trend Reports":
+if analysis == "Trend Reports":
     # create report type
     # select a report
     reportoption = st.selectbox(
@@ -100,12 +100,15 @@ if analysis = "Trend Reports":
     except:
         st.write('Data is not good! Select Other Data.')
         
-elif analysis = "Spatial Reports":
+elif analysis == "Spatial Reports":
     # connect and load from snowflake
     spdf = snowflake_connection('select * from spatial_analytics_data where stat_year <> 0')
     
     # clean up columns
     spdf.columns = [i.strip("'").replace("_", " ").title() for i in spdf.columns]
+
+else:
+    st.subheader('Select an analysis to get started.')
     
     spdf['Stat Year'] = spdf['Stat Year'].astype(str)
 
