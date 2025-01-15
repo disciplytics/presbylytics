@@ -124,7 +124,7 @@ elif analysis == "Spatial Reports":
     if reportoption == "Contributions":
 
         chart_data = spdf[['longitude', 'latitude', 'Church', 'Total Contrib']]
-        chart_data['size'] = np.log(chart_data['Total Contrib']) * 10
+        chart_data['size'] = np.log(chart_data['Total Contrib']) * 50
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
