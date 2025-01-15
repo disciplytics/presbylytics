@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pydeck
+import numpy as np
 from utils.utils import snowflake_connection
 from reports.pca_deep_dives import deep_dive_report
 from reports.pca_metrics import pca_metrics
@@ -123,7 +124,7 @@ elif analysis == "Spatial Reports":
     if reportoption == "Contributions":
 
         chart_data = spdf[['longitude', 'latitude', 'Church', 'Total Contrib']]
-        chart_data['size'] = chart_data['Total Contrib'] * 1.5
+        chart_data['size'] = np.log(chart_data['Total Contrib'])
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
