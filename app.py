@@ -124,7 +124,7 @@ elif analysis == "Spatial Reports":
     if reportoption == "Contributions":
 
         chart_data = spdf[['longitude', 'latitude', 'Church', 'Total Contrib']]
-        chart_data['size'] = np.log(chart_data['Total Contrib']) * 1000
+        chart_data['size'] = np.log(chart_data['Total Contrib']) * 500
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
@@ -143,7 +143,7 @@ elif analysis == "Spatial Reports":
         chart = pydeck.Deck(
             point_layer,
             initial_view_state=view_state,
-            tooltip={"text": "{Church} /n Total Contrib: {Total Contrib}"},
+            tooltip={"text": "{Church} \n Total Contrib: {Total Contrib}"},
         )
         
         event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
