@@ -115,7 +115,7 @@ elif analysis == "Spatial Reports":
 
     spdf = spdf.drop_duplicates(subset=['Church', 'State', 'City']).dropna()
 
-    st.subheader('Spatial Analysis of 2023 Data and a Subset of Churches')
+    st.subheader('Spatial Analysis of 2023 Data of a Subset of Churches')
     reportoption = st.selectbox(
             "Select a Report Type:",
             ("Contributions", "Members"),
