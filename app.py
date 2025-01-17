@@ -104,7 +104,7 @@ if analysis == "Trend Reports":
         
 elif analysis == "Spatial Reports":
     # connect and load from snowflake
-    spdf = snowflake_connection('select *, geocode['latitude'] as latitude, geocode['longitude'] as longitude from geocoded_metrics_data where stat_year <> 0')
+    spdf = snowflake_connection("""select *, geocode['latitude'] as latitude, geocode['longitude'] as longitude from geocoded_metrics_data where stat_year <> 0""")
     
     # clean up columns
     spdf.columns = [i.strip("'").replace("_", " ").title() for i in spdf.columns]
