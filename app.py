@@ -142,6 +142,8 @@ elif analysis == "Spatial Reports":
         chart = pydeck.Deck(
             point_layer,
             initial_view_state=view_state,
+            map_provider='mapbox',
+            map_style=pydeck.map_styles.SATELLITE,
             tooltip={"text": "{Church} \n Total Contrib: {Total Contrib}"},
         )
         
@@ -171,6 +173,8 @@ elif analysis == "Spatial Reports":
     
         chart = pydeck.Deck(
             point_layer,
+            map_provider='mapbox',
+            map_style=pydeck.map_styles.SATELLITE,
             initial_view_state=view_state,
             tooltip={"text": "{Church} \n Total Members: {Total Members}"},
         )
