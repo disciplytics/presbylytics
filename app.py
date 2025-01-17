@@ -125,7 +125,7 @@ elif analysis == "Spatial Reports":
 
         chart_data = spdf[['longitude', 'latitude', 'Church', 'State', 'City', 'Total Contrib']]
 
-        chart_data['Total Contrib'] = millify(chart_data['Total Contrib'], precision=2)
+        chart_data['Total Contrib'] = millify(chart_data['Total Contrib'].astype(float), precision=2)
         chart_data['size'] = chart_data['Total Contrib'] * 10#(chart_data['Total Contrib'] - np.mean(chart_data['Total Contrib']))/500
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
