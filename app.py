@@ -124,7 +124,9 @@ elif analysis == "Spatial Reports":
     if reportoption == "Contributions":
 
         chart_data = spdf[['longitude', 'latitude', 'Church', 'State', 'City', 'Total Contrib']]
-        chart_data['size'] = (chart_data['Total Contrib'] - np.mean(chart_data['Total Contrib']))/500
+
+        chart_data['Total Contrib'] = millify(chart_data['Total Contrib'], precision=2)
+        chart_data['size'] = chart_data['Total Contrib'] * 10#(chart_data['Total Contrib'] - np.mean(chart_data['Total Contrib']))/500
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
@@ -145,7 +147,7 @@ elif analysis == "Spatial Reports":
             initial_view_state=view_state,
             map_provider='mapbox',
             map_style=pydeck.map_styles.CARTO_ROAD,
-            tooltip={"text": "{Church} \n City: {City} \n State: {State} \n Total Contrib: {millify(Total Contrib, precision=2)}"},
+            tooltip={"text": "{Church} \n City: {City} \n State: {State} \n Total Contrib: {Total Contrib}"},
         )
         
         event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
