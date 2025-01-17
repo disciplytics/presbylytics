@@ -194,7 +194,7 @@ elif analysis == "Spatial Reports":
         chart_data = spdf[['longitude', 'latitude', 'Church', 'State', 'City', 'Benevol % Grand Total']]
 
         chart_data['Benevol % Grand Total'] = np.round(chart_data['Benevol % Grand Total']*100, 2)
-        chart_data['size'] = chart_data['Benevol % Grand Total']*100 
+        chart_data['size'] = chart_data['Benevol % Grand Total']*500 
 
         chart_data['Benevol % Grand Total'] = chart_data['Benevol % Grand Total'].apply("{:,}".format)
         point_layer = pydeck.Layer(
