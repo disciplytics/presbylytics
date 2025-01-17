@@ -124,8 +124,8 @@ elif analysis == "Spatial Reports":
 
         chart_data = spdf[['longitude', 'latitude', 'Church', 'State', 'City', 'Total Contrib']]
 
-        chart_data['Total Contrib'] = np.round(chart_data['Total Contrib'] / 1000, 2)
-        chart_data['size'] = chart_data['Total Contrib'] * 10#(chart_data['Total Contrib'] - np.mean(chart_data['Total Contrib']))/500
+        chart_data['Total Contrib'] = np.round(chart_data['Total Contrib'] / 1000000, 2)
+        chart_data['size'] = chart_data['Total Contrib'] #(chart_data['Total Contrib'] - np.mean(chart_data['Total Contrib']))/500
 
         chart_data['Total Contrib'] = chart_data['Total Contrib'].apply("{:,}".format)
         point_layer = pydeck.Layer(
@@ -148,7 +148,7 @@ elif analysis == "Spatial Reports":
             initial_view_state=view_state,
             map_provider='mapbox',
             map_style=pydeck.map_styles.CARTO_ROAD,
-            tooltip={"text": "{Church} \n City: {City} \n State: {State} \n Total Contrib: ${Total Contrib}K"},
+            tooltip={"text": "{Church} \n City: {City} \n State: {State} \n Total Contrib: ${Total Contrib}M"},
         )
         
         event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
