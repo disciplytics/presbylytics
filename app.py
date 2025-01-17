@@ -10,7 +10,6 @@ from analysis.general_analysis import general_analysis
 from analysis.contributions_analysis import contributions_analysis
 from analysis.congregational_ops_analysis import congregational_ops_analysis
 from analysis.benevol_disburs_analysis import benevol_disburs_analysis
-from millify import millify
 
 # set page configs
 st.set_page_config(
@@ -125,8 +124,10 @@ elif analysis == "Spatial Reports":
 
         chart_data = spdf[['longitude', 'latitude', 'Church', 'State', 'City', 'Total Contrib']]
 
-        chart_data['Total Contrib'] = millify(chart_data['Total Contrib'].astype(float), precision=2)
+        chart_data['Total Contrib'] = np.round(chart_data['Total Contrib'] / 1000, 2)
         chart_data['size'] = chart_data['Total Contrib'] * 10#(chart_data['Total Contrib'] - np.mean(chart_data['Total Contrib']))/500
+
+        chart_data['Total Contrib'] = "{:,}".format(chart_data['Total Contrib'])
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
@@ -147,7 +148,7 @@ elif analysis == "Spatial Reports":
             initial_view_state=view_state,
             map_provider='mapbox',
             map_style=pydeck.map_styles.CARTO_ROAD,
-            tooltip={"text": "{Church} \n City: {City} \n State: {State} \n Total Contrib: {Total Contrib}"},
+            tooltip={"text": "{Church} \n City: {City} \n State: {State} \n Total Contrib: ${Total Contrib}K"},
         )
         
         event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
