@@ -110,8 +110,8 @@ elif analysis == "Spatial Reports":
     spdf.columns = [i.strip("'").replace("_", " ").title() for i in spdf.columns]
 
     spdf['Stat Year'] = spdf['Stat Year'].astype(str)
-    spdf['latitude'] = spdf['latitude'].astype(float)
-    spdf['longitude'] = spdf['longitude'].astype(float)
+    spdf['latitude'] = spdf['LATITUDE'].astype(float)
+    spdf['longitude'] = spdf['LONGITUDE'].astype(float)
 
     spdf = spdf.drop_duplicates(subset=['Church', 'State', 'City']).dropna()
 
