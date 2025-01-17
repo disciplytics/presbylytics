@@ -10,6 +10,7 @@ from analysis.general_analysis import general_analysis
 from analysis.contributions_analysis import contributions_analysis
 from analysis.congregational_ops_analysis import congregational_ops_analysis
 from analysis.benevol_disburs_analysis import benevol_disburs_analysis
+from millify import millify
 
 # set page configs
 st.set_page_config(
@@ -144,7 +145,7 @@ elif analysis == "Spatial Reports":
             initial_view_state=view_state,
             map_provider='mapbox',
             map_style=pydeck.map_styles.CARTO_ROAD,
-            tooltip={"text": "{Church} \n City: {City} \n State: {State} \n Total Contrib: {Total Contrib}"},
+            tooltip={"text": "{Church} \n City: {City} \n State: {State} \n Total Contrib: {millify(Total Contrib, precision=2)}"},
         )
         
         event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
