@@ -104,18 +104,18 @@ if analysis == "Trend Reports":
         
 elif analysis == "Spatial Reports":
     # connect and load from snowflake
-    spdf = snowflake_connection('select * from spatial_analytics_data where stat_year <> 0')
+    spdf = snowflake_connection('select *, geocode['latitude'] as latitude, geocode['longitude'] as longitude from geocoded_metrics_data where stat_year <> 0')
     
     # clean up columns
     spdf.columns = [i.strip("'").replace("_", " ").title() for i in spdf.columns]
 
     spdf['Stat Year'] = spdf['Stat Year'].astype(str)
-    spdf['latitude'] = spdf['Latitude'].astype(float)
-    spdf['longitude'] = spdf['Longitude'].astype(float)
+    spdf['latitude'] = spdf['latitude'].astype(float)
+    spdf['longitude'] = spdf['longitude'].astype(float)
 
     spdf = spdf.drop_duplicates(subset=['Church', 'State', 'City']).dropna()
 
-    st.subheader('Spatial Analysis of 2023 Data of a Subset of Churches')
+    st.subheader('Spatial Analysis of 2023 Data')
     reportoption = st.selectbox(
             "Select a Report Type:",
             ("Contributions", "Members"),
