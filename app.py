@@ -127,7 +127,7 @@ elif analysis == "Spatial Reports":
         chart_data['Total Contrib'] = np.round(chart_data['Total Contrib'] / 1000, 2)
         chart_data['size'] = chart_data['Total Contrib'] * 10#(chart_data['Total Contrib'] - np.mean(chart_data['Total Contrib']))/500
 
-        chart_data['Total Contrib'] = chart_data['Total Contrib'].applymap("{:,}".format)
+        chart_data['Total Contrib'] = chart_data['Total Contrib'].apply("{:,}".format)
         point_layer = pydeck.Layer(
                         "ScatterplotLayer",
                         data=chart_data,
