@@ -111,13 +111,16 @@ elif analysis == "Spatial Reports":
     spdf['Stat Year'] = spdf['Stat Year'].astype(str)
     spdf['latitude'] = spdf['Latitude'].astype(float)
     spdf['longitude'] = spdf['Longitude'].astype(float)
+    spdf['Benevol % Grand Total'] = spdf['Benevol Grand Total'].astype(float)
+    spdf['Per Capita Giving'] = spdf['Per Capita Giving'].astype(float)
+    
 
     spdf = spdf.drop_duplicates(subset=['Church', 'State', 'City']).dropna()
 
     st.subheader('Spatial Analysis of 2023 Data')
     reportoption = st.selectbox(
             "Select a Report Type:",
-            ("Contributions", "Members"),
+            ("Contributions", "Members", "Per Capita Giving", "Benevol % Grand Total"),
         )
 
     if reportoption == "Contributions":
@@ -152,7 +155,72 @@ elif analysis == "Spatial Reports":
         )
         
         event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
+
+    elif reportoption == "'Per Capita Giving":
+
+        chart_data = spdf[['longitude', 'latitude', 'Church', 'State', 'City', 'Per Capita Giving']]
+
+        chart_data['Per Capita Giving'] = np.round(chart_data['Per Capita Giving'] / 1000, 2)
+        chart_data['size'] = chart_data['Per Capita Giving']*1000 #(chart_data['Total Contrib'] - np.mean(chart_data['Total Contrib']))/500
+
+        chart_data['Per Capita Giving'] = chart_data['Per Capita Giving'].apply("{:,}".format)
+        point_layer = pydeck.Layer(
+                        "ScatterplotLayer",
+                        data=chart_data,
+                        id="Church-City-State",
+                        get_position=["longitude", "latitude"],
+                        get_color="[255, 75, 75]",
+                        pickable=True,
+                        auto_highlight=True,
+                        get_radius="size",
+                    )
+
+        view_state = pydeck.ViewState(
+        latitude=40, longitude=-117, controller=True, zoom=2.4, pitch=15
+    )
     
+        chart = pydeck.Deck(
+            point_layer,
+            initial_view_state=view_state,
+            map_provider='mapbox',
+            map_style=pydeck.map_styles.CARTO_ROAD,
+            tooltip={"text": "{Church} \n City: {City} \n State: {State} \n Per Capita Giving: ${Per Capita Giving}K"},
+        )
+        
+        event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
+
+    elif reportoption == "Benevol % Grand Total":
+
+        chart_data = spdf[['longitude', 'latitude', 'Church', 'State', 'City', 'Benevol % Grand Total']]
+
+        chart_data['Benevol % Grand Total'] = np.round(chart_data['Benevol % Grand Total']*100, 2)
+        chart_data['size'] = chart_data['Benevol % Grand Total']*1000 
+
+        chart_data['Benevol % Grand Total'] = chart_data['Benevol % Grand Total'].apply("{:,}".format)
+        point_layer = pydeck.Layer(
+                        "ScatterplotLayer",
+                        data=chart_data,
+                        id="Church-City-State",
+                        get_position=["longitude", "latitude"],
+                        get_color="[255, 75, 75]",
+                        pickable=True,
+                        auto_highlight=True,
+                        get_radius="size",
+                    )
+
+        view_state = pydeck.ViewState(
+        latitude=40, longitude=-117, controller=True, zoom=2.4, pitch=15
+    )
+    
+        chart = pydeck.Deck(
+            point_layer,
+            initial_view_state=view_state,
+            map_provider='mapbox',
+            map_style=pydeck.map_styles.CARTO_ROAD,
+            tooltip={"text": "{Church} \n City: {City} \n State: {State} \n Benevol % Grand Total: {Benevol % Grand Total}%"},
+        )
+        
+        event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
     
     elif reportoption == "Members":
         chart_data = spdf[['longitude', 'latitude', 'Church', 'Comm', 'Non Comm']]
