@@ -255,7 +255,7 @@ elif analysis == "Spatial Reports":
         
         event = st.pydeck_chart(chart, on_select="rerun", selection_mode="multi-object")
 
-        st.write(event)
+        #st.write(event)
         
     else:
         st.subheader('Select an analysis to get started.')
