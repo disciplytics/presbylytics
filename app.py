@@ -281,14 +281,14 @@ elif analysis == "Forecast Reports":
                         sorted(pd.unique(fcdf['State'].dropna()).tolist())
             )
             
-        inter_df = fcdf[fcdf['State'] == state_sel]
+        inter_df = fcdf[fcdf['State'] == state_sel].replace(0,float('NaN'))
     
         if breakoption == 'City' or breakoption == 'Church':
             city_sel = st.selectbox(
                         "Select a City:",
                         sorted(pd.unique(inter_df['City'].dropna()).tolist())
                 )
-            inter_2_df = inter_df[inter_df['City'] == city_sel]
+            inter_2_df = inter_df[inter_df['City'] == city_sel].replace(0,float('NaN'))
             
             if breakoption == 'Church':
                 church_sel = st.selectbox(
@@ -296,13 +296,13 @@ elif analysis == "Forecast Reports":
                             sorted(pd.unique(inter_2_df['Church'].dropna()).tolist())
                     )
                     
-                report_df = inter_2_df[inter_2_df['Church'] == church_sel]
+                report_df = inter_2_df[inter_2_df['Church'] == church_sel].replace(0,float('NaN'))
             
             elif breakoption == 'City':
-                report_df = inter_2_df.copy()
+                report_df = inter_2_df.replace(0,float('NaN'))
                 
         elif breakoption == 'State':
-            report_df = inter_df.copy()
+            report_df = inter_df.replace(0,float('NaN'))
 
     
     #
