@@ -36,7 +36,7 @@ df.columns = [i.strip("'").replace("_", " ").title() for i in df.columns]
 df['Stat Year'] = df['Stat Year'].astype(str)
 
 # analyses
-analyses = ['Trend Reports', 'Spatial Reports']
+analyses = ['Trend Reports', 'Spatial Reports', 'Forecast Reports']
 analysis = st.segmented_control(
     "Drill Down Level: ", analyses, selection_mode="single", default ="Trend Reports"
 )
@@ -258,5 +258,12 @@ elif analysis == "Spatial Reports":
     else:
         st.subheader('Select an analysis to get started.')
 
+elif analysis == "Forecast Reports":
+    # connect and load from snowflake
+    fcdf = snowflake_connection("""select * from contribs_forecast_data""")
+    # clean up columns
+    fcdf.columns = [i.strip("'").replace("_", " ").title() for i in fcdf.columns]
+    #
+    st.dataframe(fcdf)
 else:
     st.subheader('Select an analysis to get started.')
