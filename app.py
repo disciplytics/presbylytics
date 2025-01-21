@@ -274,7 +274,7 @@ elif analysis == "Forecast Reports":
         
     
     if breakoption == 'All Churches':
-        report_df = fcdf.copy()
+        report_df = fcdf.replace(0,float('NaN'))
     elif breakoption == 'State' or breakoption == 'City' or breakoption == 'Church':
         state_sel = st.selectbox(
                         "Select a State:",
