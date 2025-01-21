@@ -167,16 +167,17 @@ elif analysis == "Spatial Reports":
 
         chart_data['Per Capita Giving'] = chart_data['Per Capita Giving'].apply("{:,}".format)
         point_layer = pydeck.Layer(
-                        "ScatterplotLayer",
+                        "HeatmapLayer",
                         data=chart_data,
                         id="Church-City-State",
                         get_position=["longitude", "latitude"],
                         get_color="[255, 75, 75]",
+                        aggregation=pydeck.types.String("SUM"),
                         pickable=True,
                         auto_highlight=True,
-                        get_radius="size",
+                        opacity=0.5,
+                        get_weight="size",
                     )
-
         view_state = pydeck.ViewState(
         latitude=40, longitude=-117, controller=True, zoom=2.4, pitch=15
     )
