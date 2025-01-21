@@ -304,12 +304,25 @@ elif analysis == "Forecast Reports":
                     )
                     
                 report_df = inter_2_df[inter_2_df['Church'] == church_sel].replace(0,float('NaN'))
+
+                report_df['Forecast'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Forecast'] != 0), 0, report_df['Forecast'])
+                report_df['Lower Bound'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Lower Bound'] != 0), 0, report_df['Lower Bound'])
+                report_df['Upper Bound'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Upper Bound'] != 0), 0, report_df['Upper Bound'])
+                report_df = report_df.replace(0,float('NaN'))
             
             elif breakoption == 'City':
                 report_df = inter_2_df.replace(0,float('NaN'))
+                report_df['Forecast'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Forecast'] != 0), 0, report_df['Forecast'])
+                report_df['Lower Bound'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Lower Bound'] != 0), 0, report_df['Lower Bound'])
+                report_df['Upper Bound'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Upper Bound'] != 0), 0, report_df['Upper Bound'])
+                report_df = report_df.replace(0,float('NaN'))
                 
         elif breakoption == 'State':
             report_df = inter_df.replace(0,float('NaN'))
+            report_df['Forecast'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Forecast'] != 0), 0, report_df['Forecast'])
+            report_df['Lower Bound'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Lower Bound'] != 0), 0, report_df['Lower Bound'])
+            report_df['Upper Bound'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Upper Bound'] != 0), 0, report_df['Upper Bound'])
+            report_df = report_df.replace(0,float('NaN'))
 
     
     #
