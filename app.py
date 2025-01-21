@@ -263,7 +263,54 @@ elif analysis == "Forecast Reports":
     fcdf = snowflake_connection("""select * from contribs_forecast_data""")
     # clean up columns
     fcdf.columns = [i.strip("'").replace("_", " ").title() for i in fcdf.columns]
+
+    fcdf['Stat Year'] = pd.to_datetime(fcdf['Stat Year']).year.astype(str)
+
+    # breakdowns
+    breakdown_options = ['All Churches', 'State', 'City', 'Church']
+    breakoption = st.segmented_control(
+        "Drill Down Level: ", breakdown_options, selection_mode="single", default ="All Churches"
+    )
+        
+    
+    if breakoption == 'All Churches':
+        report_df = fcdf.copy()
+    elif breakoption == 'State' or breakoption == 'City' or breakoption == 'Church':
+        state_sel = st.selectbox(
+                        "Select a State:",
+                        sorted(pd.unique(fcdf['State'].dropna()).tolist())
+            )
+            
+        inter_df = fcdf[fcdf['State'] == state_sel]
+    
+        if breakoption == 'City' or breakoption == 'Church':
+            city_sel = st.selectbox(
+                        "Select a City:",
+                        sorted(pd.unique(inter_df['City'].dropna()).tolist())
+                )
+            inter_2_df = inter_df[inter_df['City'] == city_sel]
+            
+            if breakoption == 'Church':
+                church_sel = st.selectbox(
+                            "Select a Church:",
+                            sorted(pd.unique(inter_2_df['Church'].dropna()).tolist())
+                    )
+                    
+                report_df = inter_2_df[inter_2_df['Church'] == church_sel]
+            
+            elif breakoption == 'City':
+                report_df = inter_2_df.copy()
+                
+        elif breakoption == 'State':
+            report_df = inter_df.copy()
+
+    
     #
-    st.dataframe(fcdf)
+    st.line_chart(
+        report_df,
+        x = 'Stat Year',
+        y = ['Total Contrib', 'Forecast', 'Lower Bound', 'Upper Bound']
+    )
+    
 else:
     st.subheader('Select an analysis to get started.')
