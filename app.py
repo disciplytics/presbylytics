@@ -276,6 +276,9 @@ elif analysis == "Forecast Reports":
     if breakoption == 'All Churches':
         report_df = fcdf.replace(0,float('NaN'))
         report_df['Forecast'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Forecast'] > 0), 0, report_df['Forecast'])
+        report_df['Lower Bound'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Lower Bound'] != 0), 0, report_df['Lower Bound'])
+        report_df['Upper Bound'] = np.where((report_df['Stat Year'].astype(int) < 2024) & (report_df['Upper Bound'] != 0), 0, report_df['Upper Bound'])
+        report_df = report_df.replace(0,float('NaN'))
         
     elif breakoption == 'State' or breakoption == 'City' or breakoption == 'Church':
         state_sel = st.selectbox(
