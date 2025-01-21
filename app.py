@@ -264,7 +264,7 @@ elif analysis == "Forecast Reports":
     # clean up columns
     fcdf.columns = [i.strip("'").replace("_", " ").title() for i in fcdf.columns]
 
-    fcdf['Stat Year'] = pd.to_datetime(fcdf['Stat Year']).year.astype(str)
+    fcdf['Stat Year'] = pd.to_datetime(fcdf['Stat Year']).dt.year.astype(str)
 
     # breakdowns
     breakdown_options = ['All Churches', 'State', 'City', 'Church']
