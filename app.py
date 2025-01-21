@@ -307,7 +307,7 @@ elif analysis == "Forecast Reports":
     
     #
     st.line_chart(
-        report_df,
+        report_df.groupby(['Stat Year'])[['Total Contrib', 'Forecast', 'Lower Bound', 'Upper Bound']].sum().reset_index(),
         x = 'Stat Year',
         y = ['Total Contrib', 'Forecast', 'Lower Bound', 'Upper Bound']
     )
