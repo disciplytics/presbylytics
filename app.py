@@ -140,7 +140,7 @@ elif analysis == "Spatial Reports":
                         aggregation=pydeck.types.String("SUM"),
                         pickable=True,
                         auto_highlight=True,
-                        opacity=0.9,
+                        opacity=0.5,
                         get_weight="size",
                     )
 
