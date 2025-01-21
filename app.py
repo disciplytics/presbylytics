@@ -311,6 +311,7 @@ elif analysis == "Forecast Reports":
 
     
     #
+    st.subheader('Total Contributions Forecast')
 
     st.line_chart(
         report_df.groupby(['Stat Year'])[['Total Contrib', 'Forecast', 'Lower Bound', 'Upper Bound']].sum().reset_index().replace(0,float('NaN')),
