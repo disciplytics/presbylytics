@@ -45,7 +45,7 @@ if analysis == "Trend Reports":
     # create report type
     # select a report
     reportoption = st.selectbox(
-            "Select a Report Type:",
+            "Select a Data Point:",
             ("Membership", "General", "Contributions", "Benevol. Disbursments", "Congregational Ops."),
         )
     
