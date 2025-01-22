@@ -38,7 +38,7 @@ df['Stat Year'] = df['Stat Year'].astype(str)
 # analyses
 analyses = ['Trend Reports', 'Spatial Reports', 'Forecast Reports']
 analysis = st.segmented_control(
-    "Drill Down Level: ", analyses, selection_mode="single", default ="Trend Reports"
+    "Select an Analysis: ", analyses, selection_mode="single", default ="Trend Reports"
 )
 
 if analysis == "Trend Reports":
